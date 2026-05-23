@@ -1,5 +1,5 @@
 #include "card.h"
-class danyGo 
+class danyGo : public card
 {
 private:
     
