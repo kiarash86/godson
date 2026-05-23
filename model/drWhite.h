@@ -3,14 +3,6 @@ class drWhite
 private:
     
 public:
-    drWhite();
-    ~drWhite();
+    drWhite() : card("drWhite", 550, 4);
+
 };
-
-drWhite::drWhite()
-{
-}
-
-drWhite::~drWhite()
-{
-}
