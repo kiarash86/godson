@@ -1,16 +1,9 @@
-class danyGo
+#include "card.h"
+class danyGo 
 {
 private:
     
 public:
-    danyGo();
-    ~danyGo();
+    danyGo() : card("danyGo", 600, 4);
 };
 
-danyGo::danyGo()
-{
-}
-
-danyGo::~danyGo()
-{
-}
