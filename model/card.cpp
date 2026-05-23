@@ -1,6 +1,6 @@
 #include "card.h"
 
-card::card(const std::string& name ,const int& health,const  int& howManyRound ) : name(name) , health(health) , maxHealth(health) ,  howManyRoundNeededForSpecialPower(howManyRound) {}
+card::card(const std::string &name, const int &health, const int &howManyRound, , const std::string &type) : name(name), health(health), maxHealth(health), howManyRoundNeededForSpecialPower(howManyRound) , type(type) {}
 
 card::~card()
 {

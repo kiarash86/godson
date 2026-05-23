@@ -4,6 +4,6 @@ class danyGo : public card
 private:
     
 public:
-    danyGo() : card("danyGo", 600, 4);
+    danyGo() : card("danyGo", 600, 4 , "Defender");
 };
 
