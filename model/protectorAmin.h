@@ -1,16 +1,8 @@
-class protectorAmin
+#include "card.h"
+class protectorAmin : public card
 {
 private:
     
 public:
-    protectorAmin();
-    ~protectorAmin();
+    protectorAmin() : card("protectorAmin", 500, 3);
 };
-
-protectorAmin::protectorAmin()
-{
-}
-
-protectorAmin::~protectorAmin()
-{
-}
