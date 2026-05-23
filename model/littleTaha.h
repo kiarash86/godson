@@ -1,16 +1,8 @@
-class littleTaha
+#include "card.h"
+class littleTaha : public card
 {
 private:
     
 public:
-    littleTaha();
-    ~littleTaha();
+    littleTaha() : card("littleTaha", 500, 3);
 };
-
-littleTaha::littleTaha()
-{
-}
-
-littleTaha::~littleTaha()
-{
-}
