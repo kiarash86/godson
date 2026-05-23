@@ -1,4 +1,5 @@
-class bigTaha
+#include "card.h"
+class bigTaha :public card
 {
 private:
     
