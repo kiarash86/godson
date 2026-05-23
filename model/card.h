@@ -10,6 +10,9 @@ int health{};
 //func specialAbility
 
 public:
-    card(std::string name, int health, int howManyRound);
+    card(const std::string &,const int &,const int&);
     ~card();
+    void addRound();
+
+    
 };
