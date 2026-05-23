@@ -11,18 +11,17 @@ void card::addRound()
     howManyRoundNeededForSpecialPower++;
 }
 
-card& card::operator+=(int heal)
-{
-    this->health = (this->health + heal > maxHealth) ? maxHealth , this->health +heal;
-    return *this;
-}
-card& card::operator-=(int dmg)
-{
-    this->health -=dmg;
-    this->health = (this->health - dmg < 0) ? 0 , this->health -dmg;
-    return *this;
-}
+
 bool card::isDead()
 {
     return health;
+}
+
+void card::damage(const int& dmg)
+{
+    health = (health - dmg < 0) ? 0, health - dmg;
+}
+void card::heal(const int & heal)
+{
+    health = (health + heal > maxHealth) ? maxHealth, health + heal
 }
