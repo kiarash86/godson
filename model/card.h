@@ -16,5 +16,6 @@ public:
     void addRound();
     card &operator+=(int);
     card &operator-=(int);
+    bool isDead();
 
 };
