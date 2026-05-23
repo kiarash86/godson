@@ -1,7 +1,8 @@
 #include <string>
 class card
 {
-private:
+
+protected:
 std::string name{};
 int howManyRoundNeededForSpecialPower{};
 int health{};
@@ -9,6 +10,6 @@ int health{};
 //func specialAbility
 
 public:
-    card();
+    card(std::string name, int health, int howManyRound);
     ~card();
 };
