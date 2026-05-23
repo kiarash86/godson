@@ -3,7 +3,7 @@ class bigTaha
 private:
     
 public:
-    bigTaha();
+    bigTaha() : card("bigTaha", 500, 4);
     ~bigTaha();
 };
 
