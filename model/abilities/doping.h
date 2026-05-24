@@ -12,7 +12,7 @@ void addBuff();
 
 void doping::addBuff()
 {
-teammate -> buff = {1.2 , 2};
+teammate -> buff = {1.2 , 2 , 0};
 }
 void doping::excute() override{
     addBuff();
