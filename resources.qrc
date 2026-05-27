@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>C:/Users/kiarash/Downloads/danyGo.png</file>
+        <file>C:/Users/kiarash/Downloads/littleTaha.png</file>
+        <file>C:/Users/kiarash/Downloads/backGround.png</file>
+        <file>C:/Users/kiarash/Downloads/bigTaha.png</file>
+        <file>C:/Users/kiarash/Downloads/protectorAmin.png</file>
+    </qresource>
+</RCC>

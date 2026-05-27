@@ -1,1 +1,1 @@
-#include "protectorAmin.h"
+#include "../../../include/model/cards/protectorAmin.h"

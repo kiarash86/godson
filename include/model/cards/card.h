@@ -10,8 +10,8 @@ std::string type;
 //func specialAbility
 
 public:
-    card(const std::string &,const int &,const int& ,const std::string &);
-    ~card();0
+    card(const std::string &name, const int &health, const int &howManyRound, const std::string &type) : name(name), health(health), maxHealth(health), howManyRoundNeededForSpecialPower(howManyRound) , type(type) {};
+    ~card();
     void addRound();
     void damage(const int&);
     void heal(const int&);

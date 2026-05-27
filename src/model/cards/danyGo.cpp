@@ -1,1 +1,1 @@
-#include "danyGo.h"
+#include "../../../include/model/cards/danyGo.h"
