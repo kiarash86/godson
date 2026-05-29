@@ -6,6 +6,8 @@ std::string name{};
 int howManyRoundNeededForSpecialPower{};
 int health{};
 int maxHealth{};
+int hidden{};
+
 std::pair<float , int> buffDmg = {1 , 15};
 std::pair<int , int> buffHeal = {0 , 15};
 std::pair<int , int> buffShield = {0 , 0};
@@ -31,4 +33,6 @@ public:
     void setBuffHeal(const int &buff , const int &howManyRound){buffHeal = {buff , howManyRound};};
     int getBuffShield() const{ return buffShield.first;};
     void setBuffShield(const int &buff , const int &howManyRound){buffShield = {buff , howManyRound};};
+    bool IsHidden() const{ return hidden;};
+    void increaseHiddenTime(const int &buff ){hidden += buff ;};
 };
