@@ -1,23 +1,11 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
 class bloodSerum : public ability
 {
 private:
-    void addBuff();
-    card *teammate;
-    card *enemy;
-
+    card *owner;
 
 public:
-    bloodSerum(card &teammate, card &enemy) : teammate(teammate), enemy(enemy);
-    ~bloodSerum();
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+    bloodSerum(card *);
 };
-
-void bloodSerum::excute() override
-{
-    addBuff();
-}
-void doping::addBuff()
-{
-    teammate->buff = {40, 2 , 1};
-}
