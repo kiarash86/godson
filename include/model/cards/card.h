@@ -20,6 +20,8 @@ public:
     void damage(const int&);
     void heal(const int&);
     bool isDead();
+
     int getBuffDmg() const{ return buffDmg.first;};
-    void setBuffDmg(const int &buff , const int &howManyRound){buffDmg = {buff , howManyRound};}
+    int getHealth() const{ return health;};
+    void setBuffDmg(const int &buff , const int &howManyRound){buffDmg = {buff , howManyRound};};
 };
