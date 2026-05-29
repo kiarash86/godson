@@ -2,10 +2,28 @@
 
 card *sharpBlade::findTeammateWithLowestHealth(const std::vector<card *> &team)
 {
-    card* who= team.front();
+    
+    card *who;
+    
     for (const auto &crd : team)
     {
-        if (who->getHealth()< crd->getHealth())
+        
+        if (crd->isDead())
+        {
+            continue;
+        }
+        who = crd;
+        break;
+    }
+
+    for (const auto &crd : team)
+    {
+        if (crd->isDead())
+        {
+            continue;
+        }
+        
+        if (who->getHealth()> crd->getHealth())
         {
             who = crd;
         }
