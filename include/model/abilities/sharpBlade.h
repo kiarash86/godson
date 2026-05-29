@@ -1,30 +1,16 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
 class sharpBlade : public ability
 {
 private:
-    void attack();
-    void heal();
-    card *teammate;
-    card *enemy;
-    int buff;
+    card *owner;
+    card *findTeammateWithLowestHealth(const std::vector<card *> &team);
+    void attackChosenEnemy(card *);
+    void healChosenTeammate(card *);
 
 public:
-    sharpBlade(card &teammate, card &enemy, int buff) : teammate(teammate), enemy(enemy), buff(buff);
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+
+    sharpBlade(card *);
     ~sharpBlade();
 };
-
-
-void sharpBlade::attack();
-{
-    enemy->damage(30 * buff);
-}
-
-void sharpBlade::heal();
-{
-    teammate->heal(40);
-}
-void sharpBlade::excute() override
-{
-    attack();
-}
