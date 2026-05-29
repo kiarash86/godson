@@ -1,6 +1,6 @@
 #include <vector>
 #include "ability.h"
-class aspirin : public ability
+class operationRoom : public ability
 {
 private:
     card *owner;
@@ -8,7 +8,7 @@ private:
     void reriveChosenTeammate(card *);
 
 public:
-    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) ;
-    aspirin(card *);
-    ~aspirin();
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+    operationRoom(card *);
+    ~operationRoom();
 };

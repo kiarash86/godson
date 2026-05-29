@@ -13,6 +13,7 @@ add_executable(GODSON
     src/model/cards/drWhite.cpp
     src/model/cards/littleTaha.cpp
     src/model/cards/protectorAmin.cpp
+    src/model/abilities/sharpBlade.cpp
 )
 
 target_include_directories(GODSON PRIVATE

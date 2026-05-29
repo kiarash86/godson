@@ -1,4 +1,4 @@
-#include "../../model/abilities/aspirin.h"
+#include "../../../include/model/abilities/aspirin.h"
 
 card *aspirin::chooseRandomTeammate(const std::vector<card*> & team)
 {

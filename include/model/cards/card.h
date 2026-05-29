@@ -6,7 +6,8 @@ std::string name{};
 int howManyRoundNeededForSpecialPower{};
 int health{};
 int maxHealth{};
-std::pair<int , int> buffDmg = {1 , 15};
+std::pair<float , int> buffDmg = {1 , 15};
+std::pair<int , int> buffHeal = {0 , 15};
 //can be stacked buff dmgs??? i mean 2 times 1.2 or reset to 1.2?
 //TODO
 
@@ -20,6 +21,10 @@ public:
     void damage(const int&);
     void heal(const int&);
     bool isDead();
+
+    int getHealth() const{ return health;};
     int getBuffDmg() const{ return buffDmg.first;};
-    void setBuffDmg(const int &buff , const int &howManyRound){buffDmg = {buff , howManyRound};}
+    void setBuffDmg(const int &buff , const int &howManyRound){buffDmg = {buff , howManyRound};};
+    int getBuffHeal() const{ return buffHeal.first;};
+    void setBuffHeal(const int &buff , const int &howManyRound){buffHeal = {buff , howManyRound};};
 };
