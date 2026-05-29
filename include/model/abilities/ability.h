@@ -1,8 +1,12 @@
+#include "../cards/card.h"
 class ability
 {
     protected:
-    ability();
-    ~ability() = default;
-    virtual void excute() =  0;
+     int energyCost;
+        card *owner;
+        ability(int energyCost) : energyCost(energyCost){};
+        ~ability() = default;
+        virtual void excute(std::vector<card *>& Team, std::vector<card *> &enemy, int tagetIndex = -1)
+        = 0;
 };
 
