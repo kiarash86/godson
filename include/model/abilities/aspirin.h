@@ -1,31 +1,17 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
 class aspirin : public ability
 {
 private:
-    void attack();
-    void heal();
-    card * teammate;
-    card * enemy;
-    int buff;
+    card* owner;
+    card *chooseRandomTeammate(const std::vector<card *> &team);
+    void attackChosenEnemy(card *);
+    void healChosenTeammate(card *);
+
+
 public:
-     aspirin(card & teammate , card &enemy , int buff) : teammate(teammate) , enemy(enemy) , buff(buff);
+    void excute(std::vector<card *> Team, std::vector<card *> enemy ,int tagetIndex) override;
+
+    aspirin(card *);    
     ~aspirin();
 };
-
-
-
-void aspirin::excute() override {
-    attack();
-    heal();
-
-}
-void aspirin::attack();
-{
-    enemy->damage(40 * buff);
-}
-
-void aspirin::heal();
-{
-    teammate->heal(40);
-}
