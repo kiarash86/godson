@@ -7,7 +7,7 @@ int howManyRoundNeededForSpecialPower{};
 int health{};
 int maxHealth{};
 std::pair<float , int> buffDmg = {1 , 15};
-std::pair<int , int> buffHeal = {1 , 15};
+std::pair<int , int> buffHeal = {0 , 15};
 //can be stacked buff dmgs??? i mean 2 times 1.2 or reset to 1.2?
 //TODO
 
