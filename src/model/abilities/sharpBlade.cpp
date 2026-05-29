@@ -25,7 +25,7 @@ void sharpBlade::healChosenTeammate(card *teammate)
     teammate->heal(20);
 }
 
-sharpBlade::sharpBlade(card *owner) : ability(owner, 3) {};
+sharpBlade::sharpBlade(card *owner) : ability(owner, 2) {};
 
 void sharpBlade::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex)
 {
