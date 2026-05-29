@@ -6,6 +6,10 @@ std::string name{};
 int howManyRoundNeededForSpecialPower{};
 int health{};
 int maxHealth{};
+std::pair<int , int> buffDmg = {1 , 15};
+//can be stacked buff dmgs??? i mean 2 times 1.2 or reset to 1.2?
+//TODO
+
 std::string type;
 //func specialAbility
 
@@ -16,5 +20,6 @@ public:
     void damage(const int&);
     void heal(const int&);
     bool isDead();
-
+    int getBuffDmg() const{ return buffDmg.first;};
+    void setBuffDmg(const int &buff , const int &howManyRound){buffDmg = {buff , howManyRound};}
 };
