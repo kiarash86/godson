@@ -38,6 +38,14 @@ void card::damage(const int& dmg)
     
     health = (health - dmg < 0) ? 0: health - dmg;
 }
+
+void card::dmgWithBomb(const int& dmg)
+{
+    health = (health - dmg < 0) ? 0: health - dmg;
+    //dmg with buff or without buff?
+    //in the observer we use this func
+    //TODO
+}
 void card::heal(const int& heal)
 {
     health = (health + heal > maxHealth) ? maxHealth: health + heal;
