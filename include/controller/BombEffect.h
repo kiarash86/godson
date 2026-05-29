@@ -5,7 +5,7 @@ private:
     int dmgBuff{1};
 public:
 //we use the buff of the time that bombed on target
-    BombEffect(card *&onWho , float dmgBuff) :observerEffect(onWho , 2) , dmgBuff(dmgBuff){};
+    BombEffect(card *onWho , float dmgBuff) :observerEffect(onWho , 2) , dmgBuff(dmgBuff){};
     ~BombEffect();
     void finishedAllRoundNeeded() override
     {

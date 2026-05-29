@@ -1,5 +1,6 @@
 #include <vector>
 #include "ability.h"
+#include "../../controller/BombEffect.h"
 class brotherRevenge : public ability
 {
 private:
@@ -8,8 +9,8 @@ private:
     void bombingChosenEnemy(card *enemy);
 
 public:
-    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
-
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex, std::vector<observerEffect *> &effects) override;
+    
     brotherRevenge(card *);
     ~brotherRevenge();
 };

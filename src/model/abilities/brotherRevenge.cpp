@@ -20,7 +20,7 @@ void brotherRevenge::bombingChosenEnemy(card *enemy)
 
 brotherRevenge::brotherRevenge(card *owner) : ability(owner, 3) {};
 
-void brotherRevenge::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex)
+void brotherRevenge::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex, std::vector<observerEffect *> &effects)
 {
-    bombingChosenEnemy(chooseRandomEnemy(enemy));
+    effects.push_back(new BombEffect{enemy[tagetIndex]  , owner->getBuffDmg()});
 }
