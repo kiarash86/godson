@@ -1,31 +1,14 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
 class lastBullet : public ability
 {
 private:
-    bool couldBeKilled();
-
-    card *enemy;
-    card *myself;
+    card *owner;
+    void attackChosenEnemy(card *);
 
 public:
-    lastBullet(card & myself card &enemy) : myself(myself)  enemy(enemy);
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+
+    lastBullet(card *);
     ~lastBullet();
 };
-
-void lastBullet::excute() override
-{
-    if (couldBeKilled())
-    {
-        enemy->dmg(myself->buff * 55 * 2);
-    }
-    else 
-    {
-        enemy->dmg(myself->buff * 55 );
-    }
-    
-}
-bool doping::couldBeKilled()
-{
-    return (myself->buff * 55 * 2 >= enemy->health)
-}

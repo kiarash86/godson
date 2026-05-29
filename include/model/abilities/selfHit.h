@@ -1,30 +1,15 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
 class selfHit : public ability
 {
 private:
-    void heal();
-    void getHealthFromTeammate();
-    card *teammate;
-    card * myself
-    int buff;
+    card *owner;
+    card *chooseRandomTeammate(const std::vector<card *> &team);
+    void attackChosenTeammate(card *);
+    void healmyself();
 
-public:
-    selfHit(card &myself  ,card &teammate) : myself(myself) teammate(teammate);
+    public : void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+
+    selfHit(card *);
     ~selfHit();
 };
-
-void selfHit::excute() override
-{
-    getHealthFromTeammate();
-    heal();
-}
-void selfHit::getHealthFromTeammate();
-{
-    teammate->dmg(25);
-}
-
-void selfHit::heal();
-{
-    myself-> heal(75);
-}

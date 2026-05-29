@@ -5,7 +5,14 @@ void card::addRound()
 {
     howManyRoundNeededForSpecialPower++;
 }
-
+bool card::canBeKilledWithThisShot(const int dmg)
+{
+    if (dmg >= buffShield.first + health)
+    {
+        return true;
+    }
+    return false;
+}
 
 bool card::isDead()
 {
