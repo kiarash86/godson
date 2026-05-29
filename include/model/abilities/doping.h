@@ -1,19 +1,12 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
-class doping: public ability
+class doping : public ability
 {
 private:
-    card *teammate;
-void addBuff();
+    card *owner;
 
-    public : doping(card &teammate) : teammate(teammate);
-    ~doping();
+public:
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+    doping(card *);
+
 };
-
-void doping::addBuff()
-{
-teammate -> buff = {1.2 , 2 , 0};
-}
-void doping::excute() override{
-    addBuff();
-}
