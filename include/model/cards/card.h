@@ -22,7 +22,7 @@ public:
     void damage(const int&);
     void heal(const int&);
     bool isDead();
-
+    bool canBeKilledWithThisShot(const int);
     int getHealth() const{ return health;};
     int getBuffDmg() const{ return buffDmg.first;};
     void setBuffDmg(const int &buff , const int &howManyRound){buffDmg = {buff , howManyRound};};
