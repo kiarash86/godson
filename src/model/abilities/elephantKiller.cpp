@@ -40,7 +40,7 @@ void elephantKiller::attackChosenEnemy(card *enemy)
 }
 
 
-elephantKiller::elephantKiller(card *owner) : ability(owner, 2) {};
+elephantKiller::elephantKiller(card *owner) : ability(owner, 4) {};
 
 void elephantKiller::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex)
 {
