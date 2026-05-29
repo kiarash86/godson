@@ -1,24 +1,14 @@
-#include "../cards/card.h"
+#include <vector>
 #include "ability.h"
 class elephantKiller : public ability
 {
 private:
-    void attack(card &enemy);
-    card *enemy1;
-    card *enemy2;
-    int buff;
-
+    card *owner;
+    card *findEnemyeWithhighestHealth(const std::vector<card *> &team);
+    void attackChosenEnemy(card *);
 public:
-    elephantKiller(card &enemy1, card &enem2, int buff) : enemy2(enemy2), enemy2(enemy2), buff(buff);
+    void excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex) override;
+
+    elephantKiller(card *);
     ~elephantKiller();
 };
-
-void elephantKiller::attack(card &enemy);
-{
-    enemy->damage(50 * buff);
-}
-
-void elephantKiller::excute() override {
-    attack(enemy1);
-    attack(enemy2);
-}
