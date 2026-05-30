@@ -1,32 +1,7 @@
-#include<iostream>
-#include<vector>
-#include<utility>
-#include<string>
-class storitesMenu
+#include <iostream>
+#include "showMenuWithKey.h"
+
+int ShowStoriesMenuOption()
 {
-private:
-std::vector<std::pair<std::string , std::string>> cards;
-public:
-    void cardsMenu()
-    {
-        for (auto &&cr : cards)
-        {
-            std::cout<<"name: " <<cr.first << std::endl;
-            
-        }
-        std::cout << "exit" << std::endl;
-        
-    }
-    void showBackStory(std::string name) const {
-        for (auto &&crd : cards)
-        {
-            if (crd.first == name)
-            {
-                std::cout<<"name: " <<crd.first << "-> story:" << crd.second<<  std::endl;
-                
-            }
-            
-        }
-        
-    }
-};
+    return viewInteractiveMenu("HEROES", {"LITTLE TAHA", "BIG TAHA", "DR.WHITE" , "DANY GO", "AMIN PROTECTOR" ,"POUYA KAZHDOM" , "SIR SHAHRIAR" ,"BACK TO MENU"});
+}
