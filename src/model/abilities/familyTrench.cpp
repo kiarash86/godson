@@ -2,9 +2,9 @@
 
 familyTrench::familyTrench(card *owner) : ability(owner, 4) {};
 
-void familyTrench::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex)
+void familyTrench::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex, std::vector<observerEffect *> &effects)
 {
-    Team[tagetIndex]->setBuffShield(250, 2);
+    effects.push_back(new shieldEffect{findTeammateWithLowestHealth(Team) , 250 , 3});
 }
 
 card *familyTrench::findTeammateWithLowestHealth(const std::vector<card *> &team)
