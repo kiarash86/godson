@@ -1,24 +1,14 @@
 #include <iostream>
-#include <vector>
-#include <utility>
-#include <string>
-class preparationGameView
-{
-private:
-    std::vector<std::pair<std::string, std::vector<std::string>>> cards;
+#include "showMenuForChoosingcards.h"
 
-public:
-    void cardsMenu()
-    {
-        std::cout << "select 3 cards from below options\n";
-        for (auto &&cr : cards)
-        {
-            std::cout << "name: " << cr.first << std::endl;
-            for (auto &&abl : cr.second)
-            {
-                std::cout << "  name of ability: " << abl << std::endl;
-            }
-            std::cout << std::endl;
-        }
-    }
-};
+std::vector<int> ShowSelectCardsMenuOption()
+{
+    return selectThreeCards("HEROES",
+                            {"LITTLE TAHA",
+                             "BIG TAHA",
+                             "DR.WHITE",
+                             "DANY GO",
+                             "AMIN PROTECTOR",
+                             "POUYA KAZHDOM",
+                             "SIR SHAHRIAR"});
+}
