@@ -1,16 +1,19 @@
 #include "../model/cards/card.h"
 class observerEffect
 {
+    public:
+        bool isFinished() const
+        {
+            return !howManyRound;
+        }
+
 protected:
+
     int howManyRound{};
     card *onWho;
-    void turnEnded()
+   virtual void turnEnded()
     {
         howManyRound--;
-        if (howManyRound == 0)
-        {
-            finishedAllRoundNeeded();
-        }
     }
     virtual void finishedAllRoundNeeded() = 0;
     virtual ~observerEffect() = 0;
