@@ -1,12 +1,11 @@
 #include <iostream>
-class startView
-{
-public:
-    void ShowMenuOption()
+#include"showMenuWithKey.h"
+
+    int ShowStartMenuOption()
     {
-        std::cout << "WELCOME TO THIS GAME!!!\n";
-        std::cout << "1) start new game\n";
-        std::cout << "2) help me\n";
-        std::cout << "3)story of cards\n";
+        return viewInteractiveMenu("MENU", {
+          "start new game"
+        , "help me"
+        , "story of cards"
+        , "exit" });
     }
-};
