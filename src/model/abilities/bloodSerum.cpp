@@ -2,7 +2,7 @@
 
 bloodSerum::bloodSerum(card *owner) : ability(owner, 4) {};
 
-void bloodSerum::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex)
+void bloodSerum::excute(std::vector<card *> &Team, std::vector<card *> &enemy, int tagetIndex, std::vector<observerEffect *> &effects)
 {
-    Team[tagetIndex]->setBuffHeal(40, 2);
+    effects.push_back(new healEffect{Team[tagetIndex] , 40 , 2});
 }
