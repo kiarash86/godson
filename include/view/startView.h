@@ -1,7 +1,6 @@
 #include <iostream>
 class startView
 {
-private:
 public:
     void ShowMenuOption()
     {
