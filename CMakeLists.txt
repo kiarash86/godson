@@ -7,13 +7,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(GODSON
     main.cpp
-    src/model/cards/bigTaha.cpp
-    src/model/cards/card.cpp
-    src/model/cards/danyGo.cpp
-    src/model/cards/drWhite.cpp
-    src/model/cards/littleTaha.cpp
-    src/model/cards/protectorAmin.cpp
-    src/model/abilities/sharpBlade.cpp
+    # src/model/cards/bigTaha.cpp
+    # src/model/cards/card.cpp
+    # src/model/cards/danyGo.cpp
+    # src/model/cards/drWhite.cpp
+    # src/model/cards/littleTaha.cpp
+    # src/model/cards/protectorAmin.cpp
+    # src/model/abilities/sharpBlade.cpp
 )
 
 target_include_directories(GODSON PRIVATE

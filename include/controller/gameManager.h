@@ -2,6 +2,11 @@
 #include "../view/startView.h"
 #include "../view/storitesMenu.h"
 #include "../view/storyShow.h"
+#include "../view/helpMeView.h"
+#include "../view/helpMeOptions.h"
+#include "../view/preparationGameView.h"
+#include "../view/battleMap.h"
+
 
 class gameManager
 {
@@ -32,6 +37,31 @@ whereToGoFromMainMenu();
 
     
 }
+
+void whereToGoFromHelpMenu()
+{
+    int index;
+    while (true)
+    {
+        index = ShowHelpMeMenuOption();
+        if (index==2)
+        {
+            break;
+        }
+        //TODO 
+        //adding a trick for exiting to main menu
+        //i think its wrong but better then nothing now
+        handleOptionsMenu(index);
+        
+    }
+    
+  
+    //TODO 
+    //should be fixed later because of stacking func in func
+whereToGoFromMainMenu();
+
+    
+}
 void whereToGoFromMainMenu()
 {
     int index;
@@ -39,10 +69,13 @@ void whereToGoFromMainMenu()
     switch (index)
     {
         case 0:
+            ShowSelectCardsMenuOption();
+            ShowSelectCardsMenuOption();
         
-        break;
+            
+             break;
         case 1:
-        
+        whereToGoFromHelpMenu();
         break;
         case 2:
         whereToGoFromStoriesMenu();
