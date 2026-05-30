@@ -1,12 +1,8 @@
-#include<iostream>
-class helpMeView
+#pragma once
+#include <iostream>
+#include "showMenuWithKey.h"
+
+int ShowHelpMeMenuOption()
 {
-private:
-    
-public:
-    void help()
-    {
-        std::cout << "this a game that u should...\n";
-        std::cout << "exit\n";
-    }
-};
+    return viewInteractiveMenu("HELP!!!", {"HOW TO PLAY", "ABOUT GAME", "BACK TO MENU"});
+}
