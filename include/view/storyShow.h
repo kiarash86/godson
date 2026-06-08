@@ -1,18 +1,19 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <conio.h>
+#include <ncurses.h>
 
 void displayLore(const std::string &title, const std::string &bio)
 {
-    system("cls");
-    std::cout << "==================================================\n";
+    clear();
+    refresh();
+        std::cout << "==================================================\n";
     std::cout << " HERO: " << title << "\n";
     std::cout << "==================================================\n\n";
     std::cout << bio << "\n\n";
     std::cout << "--------------------------------------------------\n";
     std::cout << "Press any key to return to the Stories Menu...";
-    _getch();
+    getch();
 }
 
 void handleStoriesMenu(int index)

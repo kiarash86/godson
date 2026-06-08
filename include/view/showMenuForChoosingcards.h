@@ -3,11 +3,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <conio.h>
+#include <ncurses.h>
 
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_ENTER 13
+
 
 inline std::vector<int> selectThreeCards(const std::string &title, const std::vector<std::string> cards)
 {
@@ -21,8 +19,8 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
 
     while (true)
     {
-        system("cls");
-
+    clear();
+    refresh();
         std::cout << "==================================================\n";
         std::cout << "   " << title << "\n";
         std::cout << "==================================================\n\n";
@@ -58,11 +56,11 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
             std::cout << "    [ 📑 CONFIRM SELECTION (" << currentSelectedCount << "/3) ]\n";
         }
 
-        int ch = _getch();
+        int ch = getch();
 
         if (ch == 0 || ch == 224)
         {
-            ch = _getch();
+            ch = getch();
             if (ch == KEY_UP)
             {
                 selectedIndex = (selectedIndex - 1 + totalRows) % totalRows;

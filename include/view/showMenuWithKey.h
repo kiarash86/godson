@@ -2,10 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <conio.h>
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_ENTER 13
+#include <ncurses.h>
+
 
 int viewInteractiveMenu(const std::string &title, const std::vector<std::string> &options)
 {
@@ -14,8 +12,8 @@ int viewInteractiveMenu(const std::string &title, const std::vector<std::string>
 
     while (true)
     {
-        system("cls");
-
+    clear();
+    refresh();
         std::cout << "=================================\n";
         std::cout  <<""<< title << "\n";
         std::cout << "=================================\n\n";
@@ -32,11 +30,11 @@ int viewInteractiveMenu(const std::string &title, const std::vector<std::string>
             }
         }
         std::cout << "\n---------------------------------\n";
-        int ch = _getch();
+        int ch = getch();
 
         if (ch == 0 || ch == 224)
         {
-            ch = _getch(); 
+            ch = getch(); 
             if (ch == KEY_UP)
             {
                 selectedIndex = (selectedIndex - 1 + numOptions) % numOptions;
