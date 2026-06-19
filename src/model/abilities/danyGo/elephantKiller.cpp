@@ -18,7 +18,7 @@ card *elephantKiller::findEnemyeWithhighestHealth(const std::vector<card *> &ene
         break;
 
     }
-
+    
     for (const auto &crd : enemy)
     {
         if (crd->isDead() or crd->IsHidden())

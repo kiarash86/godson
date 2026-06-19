@@ -1,50 +1,50 @@
 #pragma once
-#include <iostream>
 #include <vector>
 #include <string>
 #include <ncurses.h>
 
-
-int viewInteractiveMenu(const std::string &title, const std::vector<std::string> &options)
+inline int viewInteractiveMenu(const std::string &title, const std::vector<std::string> &options)
 {
     int selectedIndex = 0;
     int numOptions = options.size();
 
+    keypad(stdscr, TRUE); 
+    curs_set(0); 
+
     while (true)
     {
-    clear();
-    refresh();
-        std::cout << "=================================\n";
-        std::cout  <<""<< title << "\n";
-        std::cout << "=================================\n\n";
+        clear();
+
+        printw("=================================\n");
+        printw("%s\n", title.c_str());
+        printw("=================================\n\n");
 
         for (int i = 0; i < numOptions; ++i)
         {
             if (i == selectedIndex)
             {
-                std::cout << " 👉 [ " << options[i] << " ] \n";
+                printw(" 👉 [ %s ] \n", options[i].c_str());
             }
             else
             {
-                std::cout << "    " << options[i] << "\n";
+                printw("    %s\n", options[i].c_str());
             }
         }
-        std::cout << "\n---------------------------------\n";
+        printw("\n---------------------------------\n");
+        
+        refresh(); 
+
         int ch = getch();
 
-        if (ch == 0 || ch == 224)
+        if (ch == KEY_UP)
         {
-            ch = getch(); 
-            if (ch == KEY_UP)
-            {
-                selectedIndex = (selectedIndex - 1 + numOptions) % numOptions;
-            }
-            else if (ch == KEY_DOWN)
-            {
-                selectedIndex = (selectedIndex + 1) % numOptions;
-            }
+            selectedIndex = (selectedIndex - 1 + numOptions) % numOptions;
         }
-        else if (ch == KEY_ENTER)
+        else if (ch == KEY_DOWN)
+        {
+            selectedIndex = (selectedIndex + 1) % numOptions;
+        }
+        else if (ch == '\n' || ch == KEY_ENTER) // 
         {
             return selectedIndex;
         }
