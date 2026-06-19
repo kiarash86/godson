@@ -15,5 +15,14 @@ lastBullet::lastBullet(card *owner) : ability(owner, 3) {};
 
 void lastBullet::excute(gameData gameData)
 {
+
+    if (gameData.reserveWorld)
+    {
+        
+    }
+    else
+    {
+        
+    }
     attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
 }

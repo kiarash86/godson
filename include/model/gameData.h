@@ -7,5 +7,6 @@ struct gameData
     int targetIndex =-1;
     std::vector<observerEffect*> &effects;
     int round;
+    bool reverseWorld;
 };
 

@@ -3,12 +3,18 @@
 #include "../../controller/observerEffect.h"
 class ability
 {
-    protected:
-     int energyCost;
-        card *owner;
-        ability(card * owner , int energyCost) : energyCost(energyCost) , owner(owner){};
-        ~ability() = default;
-        virtual void excute(gameData gameData)
+protected:
+    int energyCost;
+    int howManyRoundNeeded;
+    int lastroundNumberUsed{0};
+    card *owner;
+    ability(card * owner , int energyCost , int howManyRoundNeeded = 0) : energyCost(energyCost) , owner(owner) , howManyRoundNeeded(howManyRoundNeeded){};
+    ~ability() = default;
+    virtual bool excute(gameData gameData)
         = 0;
+
+public:
+    bool canBeExcuted(const int& roundNumber){ return (roundNumber-howManyRoundNeeded >= lastroundNumberUsed);}
+    void setLastRoundNumberUsed(const int & lastRoundNumber){ lastroundNumberUsed = lastRoundNumber;}
 };
 

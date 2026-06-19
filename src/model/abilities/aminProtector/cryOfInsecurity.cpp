@@ -2,39 +2,76 @@
 
 card *cryOfInsecurity::chooseRandomEnemy(const std::vector<card *> &enemy)
 {
-    int who;
-    do
+    std::vector<card *> validEnemy;
+    for (const auto &crd : enemy)
     {
-        who = rand() % enemy.size();
-    } while (enemy[who]->isDead());
-    return enemy[who];
+        if (crd->isDead() or crd->IsHidden())
+        {
+            continue;
+        }
+        validEnemy.push_back(crd);
+    }
+    if (validEnemy.size() == 0)
+    {
+        return nullptr;
+    }
+
+    return validEnemy[(rand() % validEnemy.size())];
 }
+
 void cryOfInsecurity::attackMyTeammates(std::vector<card *> &Team)
 {
+
     for (auto &crd : Team)
     {
         if (crd == owner)
         {
             continue;
         }
-        crd->damage(30 *owner->getBuffDmg());
 
-        
+        crd->damage(30 * owner->getBuffDmg());
     }
-    
-    // adding buff to this dmg or no?
-    // TODO
 }
 
-void cryOfInsecurity::attackChosenEnemy(card *enemy)
+void cryOfInsecurity::healMyTeammates(std::vector<card *> &Team)
 {
-    enemy->damage(250 * owner->getBuffDmg());
+
+    for (auto &crd : Team)
+    {
+        if (crd == owner)
+        {
+            continue;
+        }
+        crd->heal(30 * owner->getBuffDmg());
+    }
 }
 
-cryOfInsecurity::cryOfInsecurity(card *owner) : ability(owner, 4) {};
-
-void cryOfInsecurity::excute(gameData gameData)
+void cryOfInsecurity::healChosenEnemy(card *enemy)
 {
-    attackChosenEnemy(chooseRandomEnemy(gameData.enemy));
-    attackMyTeammates(gameData.team);
+    enemy->heal(250 * owner->getBuffDmg());
+}
+
+cryOfInsecurity::cryOfInsecurity(card *owner) : ability(owner, 4 , 3) {};
+
+bool cryOfInsecurity::excute(gameData gameData)
+{
+
+    card *randomEnemy = chooseRandomEnemy(gameData.enemy);
+    if (randomEnemy == nullptr)
+    {
+        return false;
+    }
+    if (gameData.reverseWorld)
+    {
+
+        healChosenEnemy(randomEnemy);
+        healMyTeammates(gameData.team);
+    }
+    else
+    {
+        attackChosenEnemy(randomEnemy);
+        attackMyTeammates(gameData.team);
+    }
+    setLastRoundNumberUsed(gameData.round);
+    return true;
 }
