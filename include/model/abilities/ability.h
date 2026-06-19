@@ -14,7 +14,10 @@ protected:
         = 0;
 
 public:
+int getEneryCost(){return energyCost;}
     bool canBeExcuted(const int& roundNumber){ return (roundNumber-howManyRoundNeeded >= lastroundNumberUsed);}
     void setLastRoundNumberUsed(const int & lastRoundNumber){ lastroundNumberUsed = lastRoundNumber;}
+
+    
 };
 

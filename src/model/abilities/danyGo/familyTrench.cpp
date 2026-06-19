@@ -5,6 +5,7 @@ familyTrench::familyTrench(card *owner) : ability(owner, 4) {};
 bool familyTrench::excute(gameData gameData)
 {
     gameData.effects.push_back(new shieldEffect{findTeammateWithLowestHealth(gameData.team) , 250 , 3});
+    return true;
 }
 
 card *familyTrench::findTeammateWithLowestHealth(const std::vector<card *> &team)
@@ -35,8 +36,6 @@ card *familyTrench::findTeammateWithLowestHealth(const std::vector<card *> &team
             who = crd;
         }
 
-        // TODO
-        // when health are equel what happens?
     }
     return who;
 }
