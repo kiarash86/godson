@@ -5,18 +5,18 @@ protected:
     std::string name{};
     int howManyRoundNeededForSpecialPower{};
     int health{};
-    int maxHealth{};
     int hidden{};
-
+    
     int buffDmg{1};
     int buffShield{0};
     // can be stacked buff dmgs??? i mean 2 times 1.2 or reset to 1.2?
     // TODO
-
+    
     std::string type;
     // func specialAbility
-
-public:
+    
+    public:
+   const int maxHealth{};
     card(const std::string &name, const int &health, const int &howManyRound, const std::string &type) : name(name), health(health), maxHealth(health), howManyRoundNeededForSpecialPower(howManyRound), type(type) {};
     ~card();
     void dmgWithBomb(const int &);

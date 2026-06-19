@@ -1,14 +1,14 @@
 #include <vector>
 #include "ability.h"
+#include"../gameData.h"
 class lastBullet : public ability
 {
 private:
     card *owner;
     void attackChosenEnemy(card *);
+    void healChosenEnemy(card *);
 
 public:
-    void excute(gameData gameData) override;
-
+    bool excute(gameData gameData) override;
     lastBullet(card *);
-    ~lastBullet();
 };

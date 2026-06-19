@@ -11,18 +11,29 @@ void lastBullet::attackChosenEnemy(card *enemy)
     
 }
 
-lastBullet::lastBullet(card *owner) : ability(owner, 3) {};
-
-void lastBullet::excute(gameData gameData)
+void lastBullet::healChosenEnemy(card *enemy)
 {
-
-    if (gameData.reserveWorld)
+    if (enemy->getHealth() +(55 * owner->getBuffDmg()*2) >= enemy->maxHealth)
     {
-        
+        enemy->heal(55 * owner->getBuffDmg() *2);
+        return;
+    }
+    enemy->heal(55 * owner->getBuffDmg());
+    
+}
+
+bool lastBullet::excute(gameData gameData)
+{
+    
+    if (gameData.reverseWorld)
+    {
+        healChosenEnemy(gameData.enemy[gameData.targetIndex]);
     }
     else
     {
+        attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
         
     }
-    attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
 }
+
+lastBullet::lastBullet(card *owner) : ability(owner, 3) {};
