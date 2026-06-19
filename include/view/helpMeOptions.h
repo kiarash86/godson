@@ -1,31 +1,28 @@
 #pragma once
-
-#include <iostream>
 #include <vector>
 #include <string>
 #include <ncurses.h>
 
-void displayOption(const std::string &title, const std::string &bio)
+inline void displayOption(const std::string &title, const std::string &bio)
 {
     clear();
+    printw("==================================================\n");
+    printw(" SUBJECT: %s\n", title.c_str());
+    printw("==================================================\n\n");
+    printw("%s\n\n", bio.c_str());
+    printw("--------------------------------------------------\n");
+    printw("Press any key to return to the Help Menu...");
     refresh();
-    std::cout << "==================================================\n";
-    std::cout << " SUBJECT: " << title << "\n";
-    std::cout << "==================================================\n\n";
-    std::cout << bio << "\n\n";
-    std::cout << "--------------------------------------------------\n";
-    std::cout << "Press any key to return to the Stories Menu...";
     getch();
 }
 
-void handleOptionsMenu(int index)
+inline void handleOptionsMenu(int index)
 {
-
     switch (index)
     {
     case 0:
         displayOption("HOW TO PLAY", "IF U WANT TO PLAY THIS GAME U SHOULD CONSIDER...");
-    break;
+        break;
     case 1:
         displayOption("ABOUT GAME", "NOTHING TO SAY");
         break;
