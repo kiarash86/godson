@@ -7,7 +7,7 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
 {
     int selectedIndex = 0;
     int numCards = cards.size();
-    int totalRows = numCards + 1; 
+    int totalRows = numCards + 1;
 
     std::vector<bool> isCardSelected(numCards, false);
     int currentSelectedCount = 0;
@@ -28,36 +28,37 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
         {
             if (i == selectedIndex)
             {
-                printw(" 👉 ");
+                printw("  ► ");
             }
             else
             {
                 printw("    ");
             }
 
-            printw("%s", cards[i].c_str());
-
             if (isCardSelected[i])
             {
-                printw("  <--- [ Selected ⚔️ ]");
+                printw("[X] %s  <--- [ SELECTED ]\n", cards[i].c_str());
             }
-            printw("\n");
+            else
+            {
+                printw("[ ] %s\n", cards[i].c_str());
+            }
         }
 
         printw("\n--------------------------------------------------\n");
 
         if (selectedIndex == numCards)
         {
-            printw(" 👉 [ 🌟 CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
+            printw("  ► [ CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
         }
         else
         {
-            printw("    [ 🌟 CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
+            printw("    [ CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
         }
 
         if (!warningMessage.empty())
         {
-            printw("\n⚠️  %s\n", warningMessage.c_str());
+            printw("\n[!] Warning: %s\n", warningMessage.c_str());
         }
 
         refresh();
@@ -92,7 +93,7 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
                     }
                     else
                     {
-                        warningMessage = "You can only select EXACTLY 3 cards! Delete one first.";
+                        warningMessage = "You can only select EXACTLY 3 cards! Deselect one first.";
                     }
                 }
             }
