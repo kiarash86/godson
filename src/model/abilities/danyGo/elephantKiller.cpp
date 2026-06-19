@@ -42,7 +42,7 @@ void elephantKiller::attackChosenEnemy(card *enemy)
 
 elephantKiller::elephantKiller(card *owner) : ability(owner, 4) {};
 
-void elephantKiller::excute(gameData gameData)
+bool elephantKiller::excute(gameData gameData)
 {
     attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
     attackChosenEnemy(findEnemyeWithhighestHealth(gameData.enemy));

@@ -2,7 +2,7 @@
 
 familyTrench::familyTrench(card *owner) : ability(owner, 4) {};
 
-void familyTrench::excute(gameData gameData)
+bool familyTrench::excute(gameData gameData)
 {
     gameData.effects.push_back(new shieldEffect{findTeammateWithLowestHealth(gameData.team) , 250 , 3});
 }

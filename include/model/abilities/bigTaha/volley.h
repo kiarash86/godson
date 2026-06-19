@@ -7,7 +7,7 @@ private:
     void attackAllEnemy(std::vector<card *> &);
 
     public : 
-    void excute(gameData gameData) override;
+    bool excute(gameData gameData) override;
 
     volley(card *);
     ~volley();

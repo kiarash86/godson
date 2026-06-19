@@ -7,8 +7,8 @@ private:
     void attackChosenEnemy(card *);
     void hideMyself();
 
-    public : void excute(gameData gameData) override;
-
+    public : 
+    bool excute(gameData gameData) override;
     xRay(card *);
     ~xRay();
 };

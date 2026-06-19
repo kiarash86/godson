@@ -9,7 +9,7 @@ private:
     void bombingChosenEnemy(card *enemy);
 
 public:
-    void excute(gameData gameData) override;
+    bool excute(gameData gameData) override;
     
     brotherRevenge(card *);
     ~brotherRevenge();

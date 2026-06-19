@@ -5,11 +5,27 @@ void hooked::attackChosenEnemy(card *enemy)
     enemy->damage(20 * owner->getBuffDmg() * getFactorOfBuffDmg(enemy));
 }
 
+
+void hooked::healChosenEnemy(card *enemy)
+{
+    enemy->heal(20 * owner->getBuffDmg() / getFactorOfBuffDmg(enemy));
+}
+
 hooked::hooked(card *owner) : ability(owner, 2) {};
 
-void hooked::excute(gameData gameData)
+bool hooked::excute(gameData gameData)
 {
-    attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
+    if (gameData.reverseWorld)
+    {
+        healChosenEnemy(gameData.enemy[gameData.targetIndex]);
+    }
+    else
+    {
+        attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
+        
+    }
+    setNewLastAttackedCard(gameData.enemy[gameData.targetIndex]);
+    return true;
 }
 
 float hooked::getFactorOfBuffDmg(card *enemyCard)
@@ -37,6 +53,6 @@ void hooked::setNewLastAttackedCard(card *enemy)
     {
 
         lastAttackedCardBuffDmg.first = enemy;
-        lastAttackedCardBuffDmg.second = 1;
+        lastAttackedCardBuffDmg.second = 1.6;
     }
 }

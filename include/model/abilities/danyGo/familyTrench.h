@@ -9,6 +9,6 @@ private:
     card *findTeammateWithLowestHealth(const std::vector<card *> &team);
 
 public:
-    void excute(gameData gameData) override;
+    bool excute(gameData gameData) override;
     familyTrench(card *);
 };
