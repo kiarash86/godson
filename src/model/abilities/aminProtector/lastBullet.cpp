@@ -34,6 +34,7 @@ bool lastBullet::excute(gameData gameData)
         attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
         
     }
+    return true;
 }
 
 lastBullet::lastBullet(card *owner) : ability(owner, 3) {};

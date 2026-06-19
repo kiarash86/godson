@@ -6,9 +6,12 @@ private:
     card *owner;
     card *chooseRandomTeammate(const std::vector<card *> &team);
     void attackChosenTeammate(card *);
-    void healmyself();
+    void healmyself();    
+    void healChosenTeammate(card *);
+    void attackmyself();
 
-    public : void excute(gameData gameData) override;
+    public : 
+    bool excute(gameData gameData) override;
 
     selfHit(card *);
     ~selfHit();

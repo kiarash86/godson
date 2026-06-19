@@ -15,15 +15,43 @@ void selfHit::attackChosenTeammate(card *teammate)
     //adding buff to this dmg or no?
     //TODO
 }
+
+
+void selfHit::healChosenTeammate(card *teammate)
+{
+    teammate->heal(25);
+
+}
+//note
+// i didnt use buff for this 2 funcs
+//its not hard to add it but this ability with using buff is so weak
+
 void selfHit::healmyself()
 {
     owner->heal(75);
 }
 
+
+
+void selfHit::attackmyself()
+{
+    owner->damage(75);
+}
+
 selfHit::selfHit(card *owner) : ability(owner, 3) {};
 
-void selfHit::excute(gameData gameData)
+bool selfHit::excute(gameData gameData)
 {
-    attackChosenTeammate(chooseRandomTeammate(gameData.team));
-    healmyself();
+    if (gameData.reverseWorld)
+    {
+        healChosenTeammate(chooseRandomTeammate(gameData.team));
+        attackmyself();
+        
+    }
+    else
+    {
+        attackChosenTeammate(chooseRandomTeammate(gameData.team));
+        healmyself();
+
+    }
 }
