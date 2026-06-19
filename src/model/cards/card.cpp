@@ -16,7 +16,7 @@ bool card::canBeKilledWithThisShot(const int dmg)
 
 bool card::isDead()
 {
-    return health;
+    return (health<=0);
 }
 
 void card::damage(const int& dmg)

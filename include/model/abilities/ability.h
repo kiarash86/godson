@@ -1,4 +1,5 @@
 #include "../cards/card.h"
+#include "../gameData.h"
 #include "../../controller/observerEffect.h"
 class ability
 {
@@ -7,7 +8,7 @@ class ability
         card *owner;
         ability(card * owner , int energyCost) : energyCost(energyCost) , owner(owner){};
         ~ability() = default;
-        virtual void excute(std::vector<card *>& Team, std::vector<card *> &enemy, int tagetIndex = -1 , std::vector<observerEffect*> &effects)
+        virtual void excute(gameData gameData)
         = 0;
 };
 
