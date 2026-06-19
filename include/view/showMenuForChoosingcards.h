@@ -1,76 +1,78 @@
 #pragma once
-
-#include <iostream>
 #include <vector>
 #include <string>
 #include <ncurses.h>
-
-
 
 inline std::vector<int> selectThreeCards(const std::string &title, const std::vector<std::string> cards)
 {
     int selectedIndex = 0;
     int numCards = cards.size();
-    int totalRows = numCards + 1;
+    int totalRows = numCards + 1; 
 
     std::vector<bool> isCardSelected(numCards, false);
     int currentSelectedCount = 0;
     std::string warningMessage = "";
 
+    keypad(stdscr, TRUE);
+    curs_set(0);
+
     while (true)
     {
-    clear();
-    refresh();
-        std::cout << "==================================================\n";
-        std::cout << "   " << title << "\n";
-        std::cout << "==================================================\n\n";
+        clear();
+        
+        printw("==================================================\n");
+        printw("   %s\n", title.c_str());
+        printw("==================================================\n\n");
 
         for (int i = 0; i < numCards; ++i)
         {
             if (i == selectedIndex)
             {
-                std::cout << " 👉 ";
+                printw(" 👉 ");
             }
             else
             {
-                std::cout << "    ";
+                printw("    ");
             }
 
-            std::cout << cards[i];
+            printw("%s", cards[i].c_str());
 
             if (isCardSelected[i])
             {
-                std::cout << "  <--- [ Selected 🏹 ]";
+                printw("  <--- [ Selected ⚔️ ]");
             }
-            std::cout << "\n";
+            printw("\n");
         }
 
-        std::cout << "\n--------------------------------------------------\n";
+        printw("\n--------------------------------------------------\n");
 
         if (selectedIndex == numCards)
         {
-            std::cout << " 👉 [ 📑 CONFIRM SELECTION (" << currentSelectedCount << "/3) ]\n";
+            printw(" 👉 [ 🌟 CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
         }
         else
         {
-            std::cout << "    [ 📑 CONFIRM SELECTION (" << currentSelectedCount << "/3) ]\n";
+            printw("    [ 🌟 CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
         }
+
+        if (!warningMessage.empty())
+        {
+            printw("\n⚠️  %s\n", warningMessage.c_str());
+        }
+
+        refresh();
 
         int ch = getch();
 
-        if (ch == 0 || ch == 224)
+        if (ch == KEY_UP)
         {
-            ch = getch();
-            if (ch == KEY_UP)
-            {
-                selectedIndex = (selectedIndex - 1 + totalRows) % totalRows;
-            }
-            else if (ch == KEY_DOWN)
-            {
-                selectedIndex = (selectedIndex + 1) % totalRows;
-            }
+            selectedIndex = (selectedIndex - 1 + totalRows) % totalRows;
         }
-        else if (ch == KEY_ENTER)
+        else if (ch == KEY_DOWN)
+        {
+            selectedIndex = (selectedIndex + 1) % totalRows;
+        }
+        else if (ch == '\n' || ch == KEY_ENTER || ch == 10)
         {
             warningMessage = "";
 
@@ -90,7 +92,7 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
                     }
                     else
                     {
-                        warningMessage = "You can only select EXACTLY 3 cards! delete one first.";
+                        warningMessage = "You can only select EXACTLY 3 cards! Delete one first.";
                     }
                 }
             }
@@ -98,7 +100,6 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
             {
                 if (currentSelectedCount == 3)
                 {
-
                     std::vector<int> chosenIndices;
                     for (int i = 0; i < numCards; ++i)
                     {
@@ -107,7 +108,7 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
                             chosenIndices.push_back(i);
                         }
                     }
-                    return chosenIndices; 
+                    return chosenIndices;
                 }
                 else
                 {
@@ -117,4 +118,3 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
         }
     }
 }
-//with ai for now
