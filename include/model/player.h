@@ -1,3 +1,5 @@
+#pragma once
+
 #include"cards/card.h"
 #include"cards/bigTaha.h"
 #include"cards/littleTaha.h"
@@ -12,20 +14,12 @@ private:
     std::vector<card *> cards;
     int howMuchEnergyHas{};
 public:
-    player();
+    player() =default;
     int getHowMuchEnergyHas(){ return howMuchEnergyHas;};
-    int setHowMuchEneryHas(const int &energyRound){ howMuchEnergyHas = energyRound;}
+    void setHowMuchEneryHas(const int &energyRound){ howMuchEnergyHas = energyRound;}
+    void clearCards();
     void setCards(std::vector<int>);
-    std::vector<card*> getCards(){return cards;}
+    const std::vector<card*>& getCards() const { return cards; }
 
     ~player();
 };
-
-player::player()
-{
-    
-}
-
-player::~player()
-{
-}

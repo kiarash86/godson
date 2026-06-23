@@ -1,26 +1,35 @@
-//add a obersever class for this
-//TODO
-// if die with bomb what happens to your shield?
-#include "../../../include/model/abilities/bigTaha/brotherRevenge.h"
+#include "../../../../include/model/abilities/bigTaha/brotherRevenge.h"
+
 card *brotherRevenge::chooseRandomEnemy(const std::vector<card *> &enemy)
 {
-    int who;
-    do
+    std::vector<card *> validEnemy;
+    for (const auto &crd : enemy)
     {
-        who = rand() % enemy.size();
-    } while (enemy[who]->isDead());
-    return enemy[who];
+        if (crd == nullptr || crd->isDead())
+        {
+            continue;
+        }
+        validEnemy.push_back(crd);
+    }
+
+    if (validEnemy.empty())
+    {
+        return nullptr;
+    }
+
+    return validEnemy[(rand() % validEnemy.size())];
 }
 
-void brotherRevenge::bombingChosenEnemy(card *enemy)
-{
-    //TODO
-    //create observer here i think
-}
+brotherRevenge::brotherRevenge(card *owner) : ability(owner, "brotherRevenge", 3, 4, false, false, false, true) {}
 
-brotherRevenge::brotherRevenge(card *owner) : ability(owner, 3) {};
-
-void brotherRevenge::excute(gameData gameData)
+bool brotherRevenge::excute(gameData gameData)
 {
-    gameData.effects.push_back(new BombEffect{gameData.enemy[gameData.targetIndex]  , owner->getBuffDmg()});
+    card *target = chooseRandomEnemy(gameData.enemy);
+    if (target == nullptr)
+    {
+        return false;
+    }
+
+    gameData.effects.push_back(new BombEffect{target, owner->getBuffDmg()});
+    return true;
 }

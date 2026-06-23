@@ -1,10 +1,11 @@
+#pragma once
+
 #include <vector>
-#include "ability.h"
-#include"../gameData.h"
+#include "../ability.h"
+#include"../../gameData.h"
 class lastBullet : public ability
 {
 private:
-    card *owner;
     void attackChosenEnemy(card *);
     void healChosenEnemy(card *);
 

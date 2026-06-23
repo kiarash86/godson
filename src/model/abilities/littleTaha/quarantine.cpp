@@ -1,29 +1,42 @@
-#include "../../../include/model/abilities/littleTaha/quarantine.h"
+#include "../../../../include/model/abilities/littleTaha/quarantine.h"
 
 card *quarantine::findTeammateWithLowestHealth(const std::vector<card *> &team)
 {
-    card *who = team.front();
+    card *who = nullptr;
+
     for (const auto &crd : team)
     {
-        if (who->getHealth() < crd->getHealth())
+        if (crd == nullptr || crd->isDead())
+        {
+            continue;
+        }
+        if (who == nullptr || who->getHealth() > crd->getHealth())
         {
             who = crd;
         }
-
-        // TODO
-        // when health are equel what happens?
     }
+
     return who;
 }
 
 void quarantine::healChosenTeammate(card *teammate)
 {
-    teammate->heal(200);
+    if (teammate != nullptr)
+    {
+        teammate->heal(200);
+    }
 }
 
-quarantine::quarantine(card *owner) : ability(owner, 4) {};
+quarantine::quarantine(card *owner) : ability(owner, "quarantine", 4, 3, false, false, false, true) {}
 
-void quarantine::excute(gameData gameData)
+bool quarantine::excute(gameData gameData)
 {
-    healChosenTeammate(findTeammateWithLowestHealth(gameData.team));
+    card *who = findTeammateWithLowestHealth(gameData.team);
+    if (who == nullptr)
+    {
+        return false;
+    }
+
+    healChosenTeammate(who);
+    return true;
 }

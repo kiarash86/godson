@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "showMenuForChoosingcards.h"
 
@@ -8,7 +9,5 @@ std::vector<int> ShowSelectCardsMenuOption()
                              "BIG TAHA",
                              "DR.WHITE",
                              "DANY GO",
-                             "AMIN PROTECTOR",
-                             "POUYA KAZHDOM",
-                             "SIR SHAHRIAR"});
+                             "AMIN PROTECTOR"});
 }

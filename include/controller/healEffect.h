@@ -27,4 +27,8 @@ public:
             onWho->heal(healAmount);
         }
     }
+        void finishedAllRoundNeeded(bool &reverseWorld) override
+    {
+        
+    }
 };

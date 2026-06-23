@@ -1,57 +1,71 @@
-#include "../../../include/model/abilities/aminProtector/selfHit.h"
+#include "../../../../include/model/abilities/aminProtector/selfHit.h"
+#include <cstdlib>
 
 card *selfHit::chooseRandomTeammate(const std::vector<card *> &team)
 {
-    int who;
-    do
+    std::vector<card *> validTeam;
+    for (const auto &crd : team)
     {
-        who = rand() % team.size();
-    } while (team[who]->isDead());
-    return team[who];
-}
-void selfHit::attackChosenTeammate(card *teammate)
-{
-    teammate->damage(25);
-    //adding buff to this dmg or no?
-    //TODO
+        if (crd == nullptr || crd->isDead())
+        {
+            continue;
+        }
+        validTeam.push_back(crd);
+    }
+
+    if (validTeam.empty())
+    {
+        return nullptr;
+    }
+
+    return validTeam[(rand() % validTeam.size())];
 }
 
+void selfHit::attackChosenTeammate(card *teammate)
+{
+    if (teammate != nullptr)
+    {
+        teammate->damage(25);
+    }
+}
 
 void selfHit::healChosenTeammate(card *teammate)
 {
-    teammate->heal(25);
-
+    if (teammate != nullptr)
+    {
+        teammate->heal(25);
+    }
 }
-//note
-// i didnt use buff for this 2 funcs
-//its not hard to add it but this ability with using buff is so weak
 
 void selfHit::healmyself()
 {
     owner->heal(75);
 }
 
-
-
 void selfHit::attackmyself()
 {
     owner->damage(75);
 }
 
-selfHit::selfHit(card *owner) : ability(owner, 3) {};
+selfHit::selfHit(card *owner) : ability(owner, "selfHit", 3, 0, false, false, false, false) {}
 
 bool selfHit::excute(gameData gameData)
 {
+    card *teammate = chooseRandomTeammate(gameData.team);
+    if (teammate == nullptr)
+    {
+        return false;
+    }
+
     if (gameData.reverseWorld)
     {
-        healChosenTeammate(chooseRandomTeammate(gameData.team));
+        healChosenTeammate(teammate);
         attackmyself();
-        
     }
     else
     {
-        attackChosenTeammate(chooseRandomTeammate(gameData.team));
+        attackChosenTeammate(teammate);
         healmyself();
-
     }
+    return true;
 }

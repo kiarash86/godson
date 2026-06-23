@@ -1,17 +1,17 @@
-#include "../../../include/model/abilities/aminProtector/cryOfInsecurity.h"
+#include "../../../../include/model/abilities/aminProtector/cryOfInsecurity.h"
 
 card *cryOfInsecurity::chooseRandomEnemy(const std::vector<card *> &enemy)
 {
     std::vector<card *> validEnemy;
     for (const auto &crd : enemy)
     {
-        if (crd->isDead() or crd->IsHidden())
+        if (crd == nullptr || crd->isDead() || crd->IsHidden())
         {
             continue;
         }
         validEnemy.push_back(crd);
     }
-    if (validEnemy.size() == 0)
+    if (validEnemy.empty())
     {
         return nullptr;
     }
@@ -29,7 +29,7 @@ void cryOfInsecurity::attackMyTeammates(std::vector<card *> &Team)
             continue;
         }
 
-        crd->damage(30 * owner->getBuffDmg());
+        crd->damage(static_cast<int>(30 * owner->getBuffDmg()));
     }
 }
 
@@ -42,16 +42,29 @@ void cryOfInsecurity::healMyTeammates(std::vector<card *> &Team)
         {
             continue;
         }
-        crd->heal(30 * owner->getBuffDmg());
+        crd->heal(static_cast<int>(30 * owner->getBuffDmg()));
     }
 }
 
 void cryOfInsecurity::healChosenEnemy(card *enemy)
 {
-    enemy->heal(250 * owner->getBuffDmg());
+    if (enemy != nullptr)
+    {
+        enemy->heal(static_cast<int>(250 * owner->getBuffDmg()));
+    }
 }
 
-cryOfInsecurity::cryOfInsecurity(card *owner) : ability(owner, 4 , 3) {};
+
+void cryOfInsecurity::attackChosenEnemy(card *enemy)
+{
+    if (enemy != nullptr)
+    {
+        enemy->damage(static_cast<int>(250 * owner->getBuffDmg()));
+    }
+}
+
+
+cryOfInsecurity::cryOfInsecurity(card *owner) : ability(owner, "cryOfInsecurity", 4, 3, false, false, false, true) {}
 
 bool cryOfInsecurity::excute(gameData gameData)
 {

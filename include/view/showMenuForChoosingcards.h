@@ -28,7 +28,7 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
         {
             if (i == selectedIndex)
             {
-                printw("  ► ");
+                printw("  > ");
             }
             else
             {
@@ -49,7 +49,7 @@ inline std::vector<int> selectThreeCards(const std::string &title, const std::ve
 
         if (selectedIndex == numCards)
         {
-            printw("  ► [ CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
+            printw("  > [ CONFIRM SELECTION (%d/3) ]\n", currentSelectedCount);
         }
         else
         {

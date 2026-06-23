@@ -1,4 +1,10 @@
+#pragma once
+#include <algorithm>
 #include <string>
+#include <vector>
+
+class ability;
+
 class card
 {
 protected:
@@ -6,32 +12,61 @@ protected:
     int howManyRoundNeededForSpecialPower{};
     int health{};
     int hidden{};
-    
-    int buffDmg{1};
+
+    float buffDmg{1.f};
+    int buffDmgRounds{0};
+
     int buffShield{0};
-    // can be stacked buff dmgs??? i mean 2 times 1.2 or reset to 1.2?
-    // TODO
-    
+    int buffShieldRounds{0};
+
+    int lastSpecialRoundUsed{0};
+
     std::string type;
-    // func specialAbility
-    
-    public:
-   const int maxHealth{};
-    card(const std::string &name, const int &health, const int &howManyRound, const std::string &type) : name(name), health(health), maxHealth(health), howManyRoundNeededForSpecialPower(howManyRound), type(type) {};
-    ~card();
+    std::vector<ability *> abilities;
+
+public:
+    const int maxHealth{};
+
+    card(const std::string &name, const int &health, const int &howManyRound, const std::string &type)
+        : name(name), howManyRoundNeededForSpecialPower(howManyRound), health(health), type(type), maxHealth(health) {}
+    virtual ~card();
+
+    void addAbility(ability *ab);
+    const std::vector<ability *> &getAbilities() const { return abilities; }
+    ability *getAbility(size_t index) const;
+
     void dmgWithBomb(const int &);
     void addRound();
     void damage(const int &);
     void heal(const int &);
-    bool isDead();
-    bool canBeKilledWithThisShot(const int);
-    int getHealth() const { return health; };
-    int getBuffDmg() const { return buffDmg; };
-    void increaseBuffDmg(const int &buff) { buffDmg *= buff; };
-    void decreaseBuffDmg(const int &buff) { buffDmg /= buff; };
-    int getBuffShield() const { return buffShield; };
-    void increaseBuffShield(const int &buff) { buffShield += buff; };
-    void decreaseBuffShield(const int &buff)
+    bool isDead() const;
+    bool canBeKilledWithThisShot(const int) const;
+
+    int getHealth() const { return health; }
+    float getBuffDmg() const { return buffDmg; }
+    void setBuffDmg(float buff, int howManyRound)
+    {
+        buffDmg = buff;
+        buffDmgRounds = howManyRound;
+    }
+    void increaseBuffDmg(float buff) { buffDmg *= buff; }
+    void decreaseBuffDmg(float buff)
+    {
+        if (buff <= 0.f)
+        {
+            return;
+        }
+        buffDmg /= buff;
+    }
+
+    int getBuffShield() const { return buffShield; }
+    void setBuffShield(int buff, int howManyRound)
+    {
+        buffShield = buff;
+        buffShieldRounds = howManyRound;
+    }
+    void increaseBuffShield(int buff) { buffShield += buff; }
+    void decreaseBuffShield(int buff)
     {
         if (buff >= buffShield)
         {
@@ -39,7 +74,20 @@ protected:
             return;
         }
         buffShield -= buff;
-    };
-    bool IsHidden() const { return hidden; };
-    void increaseHiddenTime(const int &buff) { hidden += buff; };
+    }
+
+    bool IsHidden() const { return hidden > 0; }
+    void increaseHiddenTime(int buff) { hidden += buff; }
+    void decreaseHiddenTime(int buff = 1)
+    {
+        hidden = std::max(0, hidden - buff);
+    }
+
+    bool canUseSpecialPower(const int roundNumber) const;
+    int getSpecialRoundsLeft(const int roundNumber) const;
+    void markSpecialPowerUsed(const int roundNumber);
+
+    const std::string &getName() const { return name; }
+    const std::string &getType() const { return type; }
+    int getSpecialCooldown() const { return howManyRoundNeededForSpecialPower; }
 };

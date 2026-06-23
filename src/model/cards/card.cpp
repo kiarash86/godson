@@ -1,52 +1,123 @@
 #include "../../../include/model/cards/card.h"
+#include "../../../include/model/abilities/ability.h"
 
+card::~card()
+{
+    for (ability *ab : abilities)
+    {
+        delete ab;
+    }
+    abilities.clear();
+}
+
+void card::addAbility(ability *ab)
+{
+    if (ab != nullptr)
+    {
+        abilities.push_back(ab);
+    }
+}
+
+ability *card::getAbility(size_t index) const
+{
+    if (index >= abilities.size())
+    {
+        return nullptr;
+    }
+    return abilities[index];
+}
 
 void card::addRound()
 {
-    howManyRoundNeededForSpecialPower++;
-}
-bool card::canBeKilledWithThisShot(const int dmg)
-{
-    if (dmg >= buffShield.first + health)
+    if (buffDmgRounds > 0)
     {
-        return true;
-    }
-    return false;
-}
-
-bool card::isDead()
-{
-    return (health<=0);
-}
-
-void card::damage(const int& dmg)
-{
-    if (buffShield.first!=0 and buffShield.second!=0)
-    {
-        if (buffShield.first > dmg)
+        --buffDmgRounds;
+        if (buffDmgRounds == 0)
         {
-            buffShield.first -= dmg;
-            return;
-        }
-        else {
-
-            health = (health - (dmg - buffShield.first) < 0) ? 0 : health - (dmg - buffShield.first);
-            buffShield.first =0 ;
-            return;
+            buffDmg = 1.f;
         }
     }
-    
-    health = (health - dmg < 0) ? 0: health - dmg;
+
+    if (buffShieldRounds > 0)
+    {
+        --buffShieldRounds;
+        if (buffShieldRounds == 0)
+        {
+            buffShield = 0;
+        }
+    }
+
+    if (hidden > 0)
+    {
+        --hidden;
+    }
 }
 
-void card::dmgWithBomb(const int& dmg)
+bool card::canBeKilledWithThisShot(const int dmg) const
 {
-    health = (health - dmg < 0) ? 0: health - dmg;
-    //dmg with buff or without buff?
-    //in the observer we use this func
-    //TODO
+    return dmg >= buffShield + health;
 }
-void card::heal(const int& heal)
+
+bool card::isDead() const
 {
-    health = (health + heal > maxHealth) ? maxHealth: health + heal;
+    return health <= 0;
+}
+
+void card::damage(const int &dmg)
+{
+    if (dmg <= 0)
+    {
+        return;
+    }
+
+    if (buffShield > 0)
+    {
+        if (buffShield >= dmg)
+        {
+            buffShield -= dmg;
+            return;
+        }
+
+        int leftDmg = dmg - buffShield;
+        buffShield = 0;
+        health = std::max(0, health - leftDmg);
+        return;
+    }
+
+    health = std::max(0, health - dmg);
+}
+
+void card::dmgWithBomb(const int &dmg)
+{
+    health = std::max(0, health - dmg);
+}
+
+void card::heal(const int &healAmount)
+{
+    if (healAmount <= 0)
+    {
+        return;
+    }
+    health = std::min(maxHealth, health + healAmount);
+}
+
+bool card::canUseSpecialPower(const int roundNumber) const
+{
+    const ability *specialAbility = getAbility(2);
+    return specialAbility != nullptr && specialAbility->canBeExcuted(roundNumber);
+}
+
+int card::getSpecialRoundsLeft(const int roundNumber) const
+{
+    const ability *specialAbility = getAbility(2);
+    return specialAbility == nullptr ? 0 : specialAbility->getRoundsLeft(roundNumber);
+}
+
+void card::markSpecialPowerUsed(const int roundNumber)
+{
+    ability *specialAbility = getAbility(2);
+    if (specialAbility != nullptr)
+    {
+        specialAbility->setLastRoundNumberUsed(roundNumber);
+    }
 }

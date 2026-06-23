@@ -16,7 +16,6 @@ public:
         }
     }
 
-    ~shieldEffect() override = default;
 
     void finishedAllRoundNeeded(bool &reverseWorld) override
     {

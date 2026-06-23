@@ -1,11 +1,10 @@
 #pragma once
 #include<random>
 #include <vector>
-#include "ability.h"
+#include "../ability.h"
 class cryOfInsecurity : public ability
 {
 private:
-    card *owner;
     card *chooseRandomEnemy(const std::vector<card *>& );
     void attackMyTeammates(std::vector<card *> &);
     void attackChosenEnemy(card *);    
@@ -16,4 +15,4 @@ public:
     bool excute(gameData) override;
     
     cryOfInsecurity(card *);
-};
+}; 

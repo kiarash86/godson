@@ -1,41 +1,33 @@
-#include "../../../include/model/abilities/danyGo/familyTrench.h"
+#include "../../../../include/model/abilities/danyGo/familyTrench.h"
 
-familyTrench::familyTrench(card *owner) : ability(owner, 4) {};
+familyTrench::familyTrench(card *owner) : ability(owner, "familyTrench", 4, 4, false, false, false, true) {}
 
 bool familyTrench::excute(gameData gameData)
 {
-    gameData.effects.push_back(new shieldEffect{findTeammateWithLowestHealth(gameData.team) , 250 , 3});
+    card *target = findTeammateWithLowestHealth(gameData.team);
+    if (target == nullptr)
+    {
+        return false;
+    }
+
+    gameData.effects.push_back(new shieldEffect{target, 250, 2});
     return true;
 }
 
 card *familyTrench::findTeammateWithLowestHealth(const std::vector<card *> &team)
 {
-
-    card *who;
-
-    for (const auto &crd : team)
-    {
-
-        if (crd->isDead())
-        {
-            continue;
-        }
-        who = crd;
-        break;
-    }
+    card *who = nullptr;
 
     for (const auto &crd : team)
     {
-        if (crd->isDead())
+        if (crd == nullptr || crd->isDead())
         {
             continue;
         }
-
-        if (who->getHealth() > crd->getHealth())
+        if (who == nullptr || who->getHealth() > crd->getHealth())
         {
             who = crd;
         }
-
     }
     return who;
 }

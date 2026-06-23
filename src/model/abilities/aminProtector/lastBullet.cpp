@@ -1,30 +1,38 @@
-#include "../../../include/model/abilities/aminProtector/lastBullet.h"
+#include "../../../../include/model/abilities/aminProtector/lastBullet.h"
 
 void lastBullet::attackChosenEnemy(card *enemy)
 {
-    if (enemy->canBeKilledWithThisShot(55 * owner->getBuffDmg()*2))
+    if (enemy != nullptr)
     {
-        enemy->damage(55 * owner->getBuffDmg() *2);
-        return;
+        if (enemy->canBeKilledWithThisShot(static_cast<int>(55 * owner->getBuffDmg() * 2)))
+        {
+            enemy->damage(static_cast<int>(55 * owner->getBuffDmg() * 2));
+            return;
+        }
+        enemy->damage(static_cast<int>(55 * owner->getBuffDmg()));
     }
-    enemy->damage(55 * owner->getBuffDmg());
-    
 }
 
 void lastBullet::healChosenEnemy(card *enemy)
 {
-    if (enemy->getHealth() +(55 * owner->getBuffDmg()*2) >= enemy->maxHealth)
+    if (enemy != nullptr)
     {
-        enemy->heal(55 * owner->getBuffDmg() *2);
-        return;
+        if (enemy->getHealth() + static_cast<int>(55 * owner->getBuffDmg() * 2) >= enemy->maxHealth)
+        {
+            enemy->heal(static_cast<int>(55 * owner->getBuffDmg() * 2));
+            return;
+        }
+        enemy->heal(static_cast<int>(55 * owner->getBuffDmg()));
     }
-    enemy->heal(55 * owner->getBuffDmg());
-    
 }
 
 bool lastBullet::excute(gameData gameData)
 {
-    
+    if (gameData.enemy.empty() || gameData.targetIndex < 0 || gameData.targetIndex >= static_cast<int>(gameData.enemy.size()))
+    {
+        return false;
+    }
+
     if (gameData.reverseWorld)
     {
         healChosenEnemy(gameData.enemy[gameData.targetIndex]);
@@ -32,9 +40,8 @@ bool lastBullet::excute(gameData gameData)
     else
     {
         attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
-        
     }
     return true;
 }
 
-lastBullet::lastBullet(card *owner) : ability(owner, 3) {};
+lastBullet::lastBullet(card *owner) : ability(owner, "lastBullet", 3, 0, true, false, false, false) {}

@@ -1,12 +1,13 @@
+#pragma once
 #include <vector>
-#include "ability.h"
-#include "../../controller/healEffect.h"
+#include "../ability.h"
+#include "../../../controller/healEffect.h"
 class bloodSerum : public ability
 {
 private:
-    card *owner;
+    card *findTeammateWithLowestHealth(const std::vector<card *> &team);
 
 public:
-    void excute(gameData gameData) override;
+    bool excute(gameData gameData) override;
     bloodSerum(card *);
 };

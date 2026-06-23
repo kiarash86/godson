@@ -51,18 +51,6 @@ inline void handleStoriesMenu(int index)
         break;
         
     case 5:
-        displayLore("POUYA KAZHDAM",
-                    "A deadly assassin nicknamed 'The Scorpion' who strikes silently from the dark...\n"
-                    "Skill: Inflicts Active Venom that drains enemy health at the end of every single turn.");
-        break;
-        
-    case 6:
-        displayLore("AGHA SHAHRIAR",
-                    "A master of illusions who flips the rules of reality using his Joker Deck...\n"
-                    "Ultimate: 'World Inversion' turns all damage into healing and vice versa for 2 rounds.");
-        break;
-        
-    case 7:
         break;
     }
 }

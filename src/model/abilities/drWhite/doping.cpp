@@ -1,10 +1,19 @@
-#include "../../../include/model/abilities/drWhite/doping.h"
+#include "../../../../include/model/abilities/drWhite/doping.h"
 
+doping::doping(card *owner) : ability(owner, "doping", 4, 0, true, true, false, false) {}
 
-
-doping::doping(card *owner) : ability(owner, 4) {};
-
-void doping::excute(gameData gameData) 
+bool doping::excute(gameData gameData)
 {
-    gameData.team[gameData.targetIndex]->setBuffDmg(1.2 ,2);
+    if (gameData.team.empty() || gameData.targetIndex < 0 || gameData.targetIndex >= static_cast<int>(gameData.team.size()))
+    {
+        return false;
+    }
+
+    if (gameData.team[gameData.targetIndex] == nullptr)
+    {
+        return false;
+    }
+
+    gameData.team[gameData.targetIndex]->setBuffDmg(1.2f, 2);
+    return true;
 }

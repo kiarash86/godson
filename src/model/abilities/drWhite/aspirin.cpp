@@ -1,27 +1,52 @@
-#include "../../../include/model/abilities/drWhite/aspirin.h"
+#include "../../../../include/model/abilities/drWhite/aspirin.h"
+#include <cstdlib>
 
-card *aspirin::chooseRandomTeammate(const std::vector<card*> & team)
+card *aspirin::chooseRandomTeammate(const std::vector<card *> &team)
 {
-    int who;
-    do
+    std::vector<card *> validTeam;
+    for (const auto &crd : team)
     {
-        who = rand()% team.size();
-    } while ( team[who]->isDead() );
-    return team[who];
+        if (crd == nullptr || crd->isDead())
+        {
+            continue;
+        }
+        validTeam.push_back(crd);
+    }
+
+    if (validTeam.empty())
+    {
+        return nullptr;
+    }
+
+    return validTeam[(rand() % validTeam.size())];
 }
+
 void aspirin::attackChosenEnemy(card *enemy)
 {
-    enemy->damage(40 * owner->getBuffDmg());
-}
-void aspirin::healChosenTeammate(card * teammate)
-{
-    teammate->heal(40);
+    if (enemy != nullptr)
+    {
+        enemy->damage(static_cast<int>(40 * owner->getBuffDmg()));
+    }
 }
 
-aspirin::aspirin(card *owner) : ability( owner, 3) {};
-
-void aspirin::excute(gameData gameData) 
+void aspirin::healChosenTeammate(card *teammate)
 {
+    if (teammate != nullptr)
+    {
+        teammate->heal(40);
+    }
+}
+
+aspirin::aspirin(card *owner) : ability(owner, "aspirin", 3, 0, true, false, false, false) {}
+
+bool aspirin::excute(gameData gameData)
+{
+    if (gameData.enemy.empty() || gameData.targetIndex < 0 || gameData.targetIndex >= static_cast<int>(gameData.enemy.size()))
+    {
+        return false;
+    }
+
     attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
     healChosenTeammate(chooseRandomTeammate(gameData.team));
+    return true;
 }

@@ -1,74 +1,66 @@
-#include "../../../include/model/abilities/danyGo/elephantKiller.h"
+#include "../../../../include/model/abilities/danyGo/elephantKiller.h"
 
 card *elephantKiller::findEnemyeWithhighestHealth(const std::vector<card *> &enemy)
 {
-    //TODO
-    //check for being alive or not if its not then choose another one
-    card *who;
-    
-    for (const auto &crd : enemy)
-    {
-        
-        if (crd->isDead() or crd->IsHidden())
-        {
-            continue;
-        }
-        
-        who = crd;
-        break;
+    card *who = nullptr;
 
-    }
-    
     for (const auto &crd : enemy)
     {
-        if (crd->isDead() or crd->IsHidden())
+        if (crd == nullptr || crd->isDead() || crd->IsHidden())
         {
             continue;
         }
-        
-        if (who->getHealth() < crd->getHealth())
+
+        if (who == nullptr || who->getHealth() < crd->getHealth())
         {
             who = crd;
         }
-
     }
     return who;
 }
+
 void elephantKiller::attackChosenEnemy(card *enemy)
 {
-    enemy->damage(30 * owner->getBuffDmg());
+    if (enemy != nullptr)
+    {
+        enemy->damage(static_cast<int>(30 * owner->getBuffDmg()));
+    }
 }
-
-
 
 void elephantKiller::healChosenEnemy(card *enemy)
 {
-    enemy->heal(30 * owner->getBuffDmg());
+    if (enemy != nullptr)
+    {
+        enemy->heal(static_cast<int>(30 * owner->getBuffDmg()));
+    }
 }
 
 
-elephantKiller::elephantKiller(card *owner) : ability(owner, 4) {};
+elephantKiller::elephantKiller(card *owner) : ability(owner, "elephantKiller", 4, 0, true, false, false, false) {}
 
 bool elephantKiller::excute(gameData gameData)
 {
-    card* who =findEnemyeWithhighestHealth(gameData.enemy);
-    if (who =nullptr)
+    if (gameData.enemy.empty() || gameData.targetIndex < 0 || gameData.targetIndex >= static_cast<int>(gameData.enemy.size()))
     {
         return false;
     }
-    
+
+    card *who = findEnemyeWithhighestHealth(gameData.enemy);
+    if (who == nullptr || gameData.enemy[gameData.targetIndex] == nullptr)
+    {
+        return false;
+    }
+
     if (gameData.reverseWorld)
     {
-        //reverse in order?
         healChosenEnemy(gameData.enemy[gameData.targetIndex]);
-        healChosenEnemy(findEnemyeWithhighestHealth(gameData.enemy));
-        
+        healChosenEnemy(who);
     }
-    else{
-        
-        attackChosenEnemy(findEnemyeWithhighestHealth(gameData.enemy));
+    else
+    {
+        attackChosenEnemy(who);
         attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
     }
-    
+
     return true;
 }

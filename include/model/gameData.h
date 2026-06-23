@@ -1,4 +1,6 @@
-#include "../cards/card.h"
+#pragma once
+#include "cards/card.h"
+#include "../controller/observerEffect.h"
 #include<vector>
 struct gameData
 {
@@ -9,4 +11,3 @@ struct gameData
     int round;
     bool reverseWorld;
 };
-
