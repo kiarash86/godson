@@ -1,30 +1,35 @@
-#include"observerEffect.h"
-class BombEffect :  public observerEffect
+#pragma once
+#include "observerEffect.h"
+
+class BombEffect : public observerEffect
 {
 private:
-    int dmgBuff{1};
+    float dmgBuff{1.f};
+
 public:
-//we use the buff of the time that bombed on target
-    BombEffect(card *onWho , float dmgBuff) :observerEffect(onWho , 2) , dmgBuff(dmgBuff){};
+    BombEffect(card *onWho, float dmgBuff)
+        : observerEffect(onWho, 2), dmgBuff(dmgBuff) {}
+
     void finishedAllRoundNeeded(bool &reverseWorld) override
     {
-       if (onWho->getHealth() <= dmgBuff* 360)
-       {
-           onWho->dmgWithBomb( 360* dmgBuff);
+        if (onWho == nullptr)
+        {
             return;
-       }
-       
-       if (reverseWorld)
-       {
-           onWho->heal(200 *dmgBuff);
-        
-       }
-       else{
+        }
 
-           onWho->damage(200 *dmgBuff);
-       }
-        
+        if (onWho->getHealth() <= (dmgBuff * 360))
+        {
+            onWho->dmgWithBomb((360 * dmgBuff));
+            return;
+        }
 
+        if (reverseWorld)
+        {
+            onWho->heal((200 * dmgBuff));
+        }
+        else
+        {
+            onWho->damage((200 * dmgBuff));
+        }
     }
 };
-
