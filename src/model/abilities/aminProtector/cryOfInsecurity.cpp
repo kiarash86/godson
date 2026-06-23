@@ -19,7 +19,7 @@ card *cryOfInsecurity::chooseRandomEnemy(const std::vector<card *> &enemy)
     return validEnemy[(rand() % validEnemy.size())];
 }
 
-void cryOfInsecurity::attackMyTeammates(std::vector<card *> &Team)
+void cryOfInsecurity::attackMyTeammates(std::vector<card *> &Team, bool reverseWorld)
 {
 
     for (auto &crd : Team)
@@ -29,11 +29,11 @@ void cryOfInsecurity::attackMyTeammates(std::vector<card *> &Team)
             continue;
         }
 
-        crd->damage(static_cast<int>(30 * owner->getBuffDmg()));
+        applyDamage(crd, static_cast<int>(30 * owner->getBuffDmg()), reverseWorld);
     }
 }
 
-void cryOfInsecurity::healMyTeammates(std::vector<card *> &Team)
+void cryOfInsecurity::healMyTeammates(std::vector<card *> &Team, bool reverseWorld)
 {
 
     for (auto &crd : Team)
@@ -42,25 +42,19 @@ void cryOfInsecurity::healMyTeammates(std::vector<card *> &Team)
         {
             continue;
         }
-        crd->heal(static_cast<int>(30 * owner->getBuffDmg()));
+        applyHealing(crd, static_cast<int>(30 * owner->getBuffDmg()), reverseWorld);
     }
 }
 
-void cryOfInsecurity::healChosenEnemy(card *enemy)
+void cryOfInsecurity::healChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->heal(static_cast<int>(250 * owner->getBuffDmg()));
-    }
+    applyHealing(enemy, static_cast<int>(250 * owner->getBuffDmg()), reverseWorld);
 }
 
 
-void cryOfInsecurity::attackChosenEnemy(card *enemy)
+void cryOfInsecurity::attackChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->damage(static_cast<int>(250 * owner->getBuffDmg()));
-    }
+    applyDamage(enemy, static_cast<int>(250 * owner->getBuffDmg()), reverseWorld);
 }
 
 
@@ -77,13 +71,13 @@ bool cryOfInsecurity::excute(gameData gameData)
     if (gameData.reverseWorld)
     {
 
-        healChosenEnemy(randomEnemy);
-        healMyTeammates(gameData.team);
+        healChosenEnemy(randomEnemy, gameData.reverseWorld);
+        healMyTeammates(gameData.team, gameData.reverseWorld);
     }
     else
     {
-        attackChosenEnemy(randomEnemy);
-        attackMyTeammates(gameData.team);
+        attackChosenEnemy(randomEnemy, gameData.reverseWorld);
+        attackMyTeammates(gameData.team, gameData.reverseWorld);
     }
     setLastRoundNumberUsed(gameData.round);
     return true;

@@ -1,11 +1,8 @@
 #include "../../../../include/model/abilities/bigTaha/xRay.h"
 
-void xRay::attackChosenEnemy(card *enemy)
+void xRay::attackChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->damage(static_cast<int>(90 * owner->getBuffDmg()));
-    }
+    applyDamage(enemy, static_cast<int>(90 * owner->getBuffDmg()), reverseWorld);
 }
 
 xRay::xRay(card *owner) : ability(owner, "xRay", 4, 0, true, false, false, false) {}
@@ -22,7 +19,7 @@ bool xRay::excute(gameData gameData)
         return false;
     }
 
-    attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
+    attackChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
     hideMyself();
     return true;
 }

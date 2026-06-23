@@ -5,8 +5,8 @@ class aspirin : public ability
 {
 private:
     card *chooseRandomTeammate(const std::vector<card *> &team);
-    void attackChosenEnemy(card *);
-    void healChosenTeammate(card *);
+    void attackChosenEnemy(card *, bool);
+    void healChosenTeammate(card *, bool);
 
 
 public:

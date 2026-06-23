@@ -20,20 +20,14 @@ card *sharpBlade::findTeammateWithLowestHealth(const std::vector<card *> &team)
     return who;
 }
 
-void sharpBlade::attackChosenEnemy(card *enemy)
+void sharpBlade::attackChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->damage(static_cast<int>(30 * owner->getBuffDmg()));
-    }
+    applyDamage(enemy, static_cast<int>(30 * owner->getBuffDmg()), reverseWorld);
 }
 
-void sharpBlade::healChosenTeammate(card *teammate)
+void sharpBlade::healChosenTeammate(card *teammate, bool reverseWorld)
 {
-    if (teammate != nullptr)
-    {
-        teammate->heal(20);
-    }
+    applyHealing(teammate, 20, reverseWorld);
 }
 
 sharpBlade::sharpBlade(card *owner) : ability(owner, "sharpBlade", 2, 0, true, false, false, false) {}
@@ -45,7 +39,7 @@ bool sharpBlade::excute(gameData gameData)
         return false;
     }
 
-    attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
-    healChosenTeammate(findTeammateWithLowestHealth(gameData.team));
+    attackChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
+    healChosenTeammate(findTeammateWithLowestHealth(gameData.team), gameData.reverseWorld);
     return true;
 }

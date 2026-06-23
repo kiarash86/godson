@@ -19,12 +19,9 @@ card *quarantine::findTeammateWithLowestHealth(const std::vector<card *> &team)
     return who;
 }
 
-void quarantine::healChosenTeammate(card *teammate)
+void quarantine::healChosenTeammate(card *teammate, bool reverseWorld)
 {
-    if (teammate != nullptr)
-    {
-        teammate->heal(200);
-    }
+    applyHealing(teammate, 200, reverseWorld);
 }
 
 quarantine::quarantine(card *owner) : ability(owner, "quarantine", 4, 3, false, false, false, true) {}
@@ -37,6 +34,6 @@ bool quarantine::excute(gameData gameData)
         return false;
     }
 
-    healChosenTeammate(who);
+    healChosenTeammate(who, gameData.reverseWorld);
     return true;
 }

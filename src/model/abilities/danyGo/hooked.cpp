@@ -1,18 +1,18 @@
 #include "../../../../include/model/abilities/danyGo/hooked.h"
 
-void hooked::attackChosenEnemy(card *enemy)
+void hooked::attackChosenEnemy(card *enemy, bool reverseWorld)
 {
     if (enemy != nullptr)
     {
-        enemy->damage(static_cast<int>(20 * owner->getBuffDmg() * getFactorOfBuffDmg(enemy)));
+        applyDamage(enemy, static_cast<int>(20 * owner->getBuffDmg() * getFactorOfBuffDmg(enemy)), reverseWorld);
     }
 }
 
-void hooked::healChosenEnemy(card *enemy)
+void hooked::healChosenEnemy(card *enemy, bool reverseWorld)
 {
     if (enemy != nullptr)
     {
-        enemy->heal(static_cast<int>(20 * owner->getBuffDmg() / getFactorOfBuffDmg(enemy)));
+        applyHealing(enemy, static_cast<int>(20 * owner->getBuffDmg() / getFactorOfBuffDmg(enemy)), reverseWorld);
     }
 }
 
@@ -27,11 +27,11 @@ bool hooked::excute(gameData gameData)
 
     if (gameData.reverseWorld)
     {
-        healChosenEnemy(gameData.enemy[gameData.targetIndex]);
+        healChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
     }
     else
     {
-        attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
+        attackChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
     }
     setNewLastAttackedCard(gameData.enemy[gameData.targetIndex]);
     return true;

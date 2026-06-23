@@ -5,7 +5,7 @@ class operationRoom : public ability
 {
 private:
 
-    void reriveChosenTeammate(card *);
+    void reriveChosenTeammate(card *, bool);
 
 public:
     bool excute(gameData gameData) override;

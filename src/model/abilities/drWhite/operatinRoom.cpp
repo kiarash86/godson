@@ -1,13 +1,8 @@
 #include "../../../../include/model/abilities/drWhite/operationRoom.h"
 
-void operationRoom::reriveChosenTeammate(card *teammate)
+void operationRoom::reriveChosenTeammate(card *teammate, bool reverseWorld)
 {
-    if (teammate == nullptr)
-    {
-        return;
-    }
-
-    teammate->heal(200);
+    applyHealing(teammate, 200, reverseWorld);
 }
 
 operationRoom::operationRoom(card *owner) : ability(owner, "operationRoom", 4, 4, true, true, true, true) {}
@@ -19,6 +14,6 @@ bool operationRoom::excute(gameData gameData)
         return false;
     }
 
-    reriveChosenTeammate(gameData.team[gameData.targetIndex]);
+    reriveChosenTeammate(gameData.team[gameData.targetIndex], gameData.reverseWorld);
     return true;
 }

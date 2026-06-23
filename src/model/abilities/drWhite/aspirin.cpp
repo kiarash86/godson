@@ -21,20 +21,14 @@ card *aspirin::chooseRandomTeammate(const std::vector<card *> &team)
     return validTeam[(rand() % validTeam.size())];
 }
 
-void aspirin::attackChosenEnemy(card *enemy)
+void aspirin::attackChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->damage(static_cast<int>(40 * owner->getBuffDmg()));
-    }
+    applyDamage(enemy, static_cast<int>(40 * owner->getBuffDmg()), reverseWorld);
 }
 
-void aspirin::healChosenTeammate(card *teammate)
+void aspirin::healChosenTeammate(card *teammate, bool reverseWorld)
 {
-    if (teammate != nullptr)
-    {
-        teammate->heal(40);
-    }
+    applyHealing(teammate, 40, reverseWorld);
 }
 
 aspirin::aspirin(card *owner) : ability(owner, "aspirin", 3, 0, true, false, false, false) {}
@@ -46,7 +40,7 @@ bool aspirin::excute(gameData gameData)
         return false;
     }
 
-    attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
-    healChosenTeammate(chooseRandomTeammate(gameData.team));
+    attackChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
+    healChosenTeammate(chooseRandomTeammate(gameData.team), gameData.reverseWorld);
     return true;
 }

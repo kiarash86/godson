@@ -1,6 +1,6 @@
 #include "../../../../include/model/abilities/bigTaha/volley.h"
 
-void volley::attackAllEnemy(std::vector<card *> &enemy)
+void volley::attackAllEnemy(std::vector<card *> &enemy, bool reverseWorld)
 {
     for (auto &card : enemy)
     {
@@ -8,7 +8,7 @@ void volley::attackAllEnemy(std::vector<card *> &enemy)
         {
             continue;
         }
-        card->damage(static_cast<int>(30 * owner->getBuffDmg()));
+        applyDamage(card, static_cast<int>(30 * owner->getBuffDmg()), reverseWorld);
     }
 }
 
@@ -16,6 +16,6 @@ volley::volley(card *owner) : ability(owner, "volley", 3, 0, false, false, false
 
 bool volley::excute(gameData gameData)
 {
-    attackAllEnemy(gameData.enemy);
+    attackAllEnemy(gameData.enemy, gameData.reverseWorld);
     return true;
 }

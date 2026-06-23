@@ -27,6 +27,41 @@ protected:
           needsTarget(needsTarget), targetIsAlly(targetIsAlly), allowDeadTarget(allowDeadTarget),
           specialPower(specialPower), owner(owner) {}
 
+protected:
+    void applyDamage(card *target, int amount, bool reverseWorld) const
+    {
+        if (target == nullptr || amount <= 0)
+        {
+            return;
+        }
+
+        if (reverseWorld)
+        {
+            target->heal(amount);
+        }
+        else
+        {
+            target->damage(amount);
+        }
+    }
+
+    void applyHealing(card *target, int amount, bool reverseWorld) const
+    {
+        if (target == nullptr || amount <= 0)
+        {
+            return;
+        }
+
+        if (reverseWorld)
+        {
+            target->damage(amount);
+        }
+        else
+        {
+            target->heal(amount);
+        }
+    }
+
 public:
     virtual ~ability() = default;
     virtual bool excute(gameData gameData) = 0;

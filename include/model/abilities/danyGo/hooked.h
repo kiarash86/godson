@@ -6,8 +6,8 @@ class hooked : public ability
 {
 private:
     std::pair<card *, float> lastAttackedCardBuffDmg{nullptr , 1};
-    void attackChosenEnemy(card *);    
-    void healChosenEnemy(card *);
+    void attackChosenEnemy(card *, bool);    
+    void healChosenEnemy(card *, bool);
 
     float getFactorOfBuffDmg(card *);
     void setNewLastAttackedCard(card *);

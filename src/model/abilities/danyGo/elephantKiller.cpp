@@ -19,20 +19,14 @@ card *elephantKiller::findEnemyeWithhighestHealth(const std::vector<card *> &ene
     return who;
 }
 
-void elephantKiller::attackChosenEnemy(card *enemy)
+void elephantKiller::attackChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->damage(static_cast<int>(30 * owner->getBuffDmg()));
-    }
+    applyDamage(enemy, static_cast<int>(30 * owner->getBuffDmg()), reverseWorld);
 }
 
-void elephantKiller::healChosenEnemy(card *enemy)
+void elephantKiller::healChosenEnemy(card *enemy, bool reverseWorld)
 {
-    if (enemy != nullptr)
-    {
-        enemy->heal(static_cast<int>(30 * owner->getBuffDmg()));
-    }
+    applyHealing(enemy, static_cast<int>(30 * owner->getBuffDmg()), reverseWorld);
 }
 
 
@@ -53,13 +47,13 @@ bool elephantKiller::excute(gameData gameData)
 
     if (gameData.reverseWorld)
     {
-        healChosenEnemy(gameData.enemy[gameData.targetIndex]);
-        healChosenEnemy(who);
+        healChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
+        healChosenEnemy(who, gameData.reverseWorld);
     }
     else
     {
-        attackChosenEnemy(who);
-        attackChosenEnemy(gameData.enemy[gameData.targetIndex]);
+        attackChosenEnemy(who, gameData.reverseWorld);
+        attackChosenEnemy(gameData.enemy[gameData.targetIndex], gameData.reverseWorld);
     }
 
     return true;

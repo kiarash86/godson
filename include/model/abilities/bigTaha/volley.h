@@ -4,7 +4,7 @@
 class volley : public ability
 {
 private:
-    void attackAllEnemy(std::vector<card *> &);
+    void attackAllEnemy(std::vector<card *> &, bool);
 
     public : 
     bool excute(gameData gameData) override;

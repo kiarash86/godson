@@ -21,30 +21,24 @@ card *selfHit::chooseRandomTeammate(const std::vector<card *> &team)
     return validTeam[(rand() % validTeam.size())];
 }
 
-void selfHit::attackChosenTeammate(card *teammate)
+void selfHit::attackChosenTeammate(card *teammate, bool reverseWorld)
 {
-    if (teammate != nullptr)
-    {
-        teammate->damage(25);
-    }
+    applyDamage(teammate, 25, reverseWorld);
 }
 
-void selfHit::healChosenTeammate(card *teammate)
+void selfHit::healChosenTeammate(card *teammate, bool reverseWorld)
 {
-    if (teammate != nullptr)
-    {
-        teammate->heal(25);
-    }
+    applyHealing(teammate, 25, reverseWorld);
 }
 
-void selfHit::healmyself()
+void selfHit::healmyself(bool reverseWorld)
 {
-    owner->heal(75);
+    applyHealing(owner, 75, reverseWorld);
 }
 
-void selfHit::attackmyself()
+void selfHit::attackmyself(bool reverseWorld)
 {
-    owner->damage(75);
+    applyDamage(owner, 75, reverseWorld);
 }
 
 selfHit::selfHit(card *owner) : ability(owner, "selfHit", 3, 0, false, false, false, false) {}
@@ -59,13 +53,13 @@ bool selfHit::excute(gameData gameData)
 
     if (gameData.reverseWorld)
     {
-        healChosenTeammate(teammate);
-        attackmyself();
+        healChosenTeammate(teammate, gameData.reverseWorld);
+        attackmyself(gameData.reverseWorld);
     }
     else
     {
-        attackChosenTeammate(teammate);
-        healmyself();
+        attackChosenTeammate(teammate, gameData.reverseWorld);
+        healmyself(gameData.reverseWorld);
     }
     return true;
 }

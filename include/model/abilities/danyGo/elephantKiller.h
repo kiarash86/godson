@@ -5,8 +5,8 @@ class elephantKiller : public ability
 {
 private:
     card *findEnemyeWithhighestHealth(const std::vector<card *> &team);
-    void attackChosenEnemy(card *);
-    void healChosenEnemy(card *);
+    void attackChosenEnemy(card *, bool);
+    void healChosenEnemy(card *, bool);
 public:
     bool excute(gameData gameData) override;
 

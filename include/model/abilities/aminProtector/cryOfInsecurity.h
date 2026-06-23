@@ -6,10 +6,10 @@ class cryOfInsecurity : public ability
 {
 private:
     card *chooseRandomEnemy(const std::vector<card *>& );
-    void attackMyTeammates(std::vector<card *> &);
-    void attackChosenEnemy(card *);    
-    void healMyTeammates(std::vector<card *> &);
-    void healChosenEnemy(card *);
+    void attackMyTeammates(std::vector<card *> &, bool);
+    void attackChosenEnemy(card *, bool);    
+    void healMyTeammates(std::vector<card *> &, bool);
+    void healChosenEnemy(card *, bool);
 
 public: 
     bool excute(gameData) override;
