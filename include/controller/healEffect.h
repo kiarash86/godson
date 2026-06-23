@@ -1,28 +1,22 @@
 #include "observerEffect.h"
-class healEffect : public observerEffect
-{
+class healEffect : public observerEffect {
 private:
+  int healAmount{};
 
-int healAmount{};
 public:
-    // we use the buff of the time that bombed on target
-    healEffect(card *onWho , int healAmount , int howManyRound) : observerEffect(onWho, howManyRound) , healAmount(healAmount)  {};
-    ~healEffect();
-    void finishedAllRoundNeeded() override
-    {
-        return;
+  // we use the buff of the time that bombed on target
+  healEffect(card *onWho, int healAmount, int howManyRound)
+      : observerEffect(onWho, howManyRound), healAmount(healAmount){};
+  void turnEnded(bool &reverseWorld) {
+    howManyRound--;
+    if (onWho->isDead()) {
+      return;
     }
-    void turnEnded()
-    {
-        howManyRound--;
-        if (onWho->isDead())
-        {
-            return;
-        }
-        
-        onWho->heal(healAmount);
-    }
-};
+    if (reverseWorld) {
+      onWho->damage(healAmount);
+    } else {
 
-//buff should be taken when someone is dead or no?
-//TODO
+      onWho->heal(healAmount);
+    }
+  }
+};

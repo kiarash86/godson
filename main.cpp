@@ -10,7 +10,11 @@ int main()
     while (true)
     {
 
-        gManager->whereToGoFromMainMenu();
+      if (gManager->whereToGoFromMainMenu() ==-1)
+      {
+        break;
+      }
+        
         
     }
     

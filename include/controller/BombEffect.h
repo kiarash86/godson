@@ -6,8 +6,7 @@ private:
 public:
 //we use the buff of the time that bombed on target
     BombEffect(card *onWho , float dmgBuff) :observerEffect(onWho , 2) , dmgBuff(dmgBuff){};
-    ~BombEffect();
-    void finishedAllRoundNeeded() override
+    void finishedAllRoundNeeded(bool &reverseWorld) override
     {
        if (onWho->getHealth() <= dmgBuff* 360)
        {
@@ -15,7 +14,15 @@ public:
             return;
        }
        
-       onWho->damage(200 *dmgBuff);
+       if (reverseWorld)
+       {
+           onWho->heal(200 *dmgBuff);
+        
+       }
+       else{
+
+           onWho->damage(200 *dmgBuff);
+       }
         
 
     }

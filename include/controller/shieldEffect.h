@@ -10,7 +10,7 @@ public:
         onWho->increaseBuffShield(shieldAmount);
     };
     ~shieldEffect();
-    void finishedAllRoundNeeded() override
+    void finishedAllRoundNeeded(bool &reverseWorld) override
     {
         onWho->decreaseBuffShield(shieldAmount);
     }

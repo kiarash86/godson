@@ -6,11 +6,14 @@
 #include "../view/storitesMenu.h"
 #include "../view/storyShow.h"
 #include "model/player.h"
-
+#include "observerEffect.h"
 class gameManager {
 private:
   player player1;
   player player2;
+  std::vector<observerEffect> effects;
+  int round{1};
+  bool reverseWorld{false};
 
 public:
   void whereToGoFromStoriesMenu() {
@@ -20,7 +23,6 @@ public:
       if (index == 7) {
         break;
       }
-
       handleStoriesMenu(index);
     }
   }
@@ -35,20 +37,17 @@ public:
 
       handleOptionsMenu(index);
     }
-
-    // TODO
-    // should be fixed later because of stacking func in func
-    whereToGoFromMainMenu();
   }
 
-  void whereToGoFromMainMenu() {
+  int whereToGoFromMainMenu() {
     int index;
     index = ShowStartMenuOption();
     switch (index) {
     case 0:
-      ShowSelectCardsMenuOption();
-      ShowSelectCardsMenuOption();
+      player1.setCards(ShowSelectCardsMenuOption());
+      player2.setCards(ShowSelectCardsMenuOption());
 
+      Battle();
       break;
     case 1:
       whereToGoFromHelpMenu();
@@ -57,8 +56,32 @@ public:
       whereToGoFromStoriesMenu();
       break;
     case 3:
-      exit(0);
+      return -1;
       break;
+    }
+    return 0;
+  }
+
+  void Battle() {
+    std::string currentLog = "The battle has begun! Choose your action.";
+
+    while (true) {
+
+      // effect controller
+      for (size_t i = 0; i < effects.size(); i++) {
+
+        effects[i].turnEnded(reverseWorld);
+        if (effects[i].isFinished()) {
+          effects[i].finishedAllRoundNeeded(reverseWorld);
+          effects.erase(effects.begin() + i);
+        }
+      }
+      //
+
+
+      draw(player1, player2, round, round % 2, " ");
+
+      round++;
     }
   }
 };
