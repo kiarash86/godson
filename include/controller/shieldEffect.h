@@ -1,20 +1,28 @@
+#pragma once
 #include "observerEffect.h"
+
 class shieldEffect : public observerEffect
 {
 private:
     int shieldAmount{};
 
 public:
-    // we use the buff of the time that bombed on target
-    shieldEffect(card *onWho, int shieldAmount, int howManyRound) : observerEffect(onWho, howManyRound), shieldAmount(shieldAmount) {
-        onWho->increaseBuffShield(shieldAmount);
-    };
-    ~shieldEffect();
-    void finishedAllRoundNeeded(bool &reverseWorld) override
+    shieldEffect(card *onWho, int shieldAmount, int howManyRound)
+        : observerEffect(onWho, howManyRound), shieldAmount(shieldAmount)
     {
-        onWho->decreaseBuffShield(shieldAmount);
+        if (onWho != nullptr)
+        {
+            onWho->increaseBuffShield(shieldAmount);
+        }
     }
 
+    ~shieldEffect() override = default;
+
+    void finishedAllRoundNeeded(bool &reverseWorld) override
+    {
+        if (onWho != nullptr)
+        {
+            onWho->decreaseBuffShield(shieldAmount);
+        }
+    }
 };
-// buff should be taken when someone is dead or no?
-// TODO

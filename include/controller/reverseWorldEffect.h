@@ -1,16 +1,14 @@
+#pragma once
 #include "observerEffect.h"
-class reverseWorldEffect : public observerEffect {
-private:
-  int healAmount{};
 
+class reverseWorldEffect : public observerEffect
+{
 public:
-  // we use the buff of the time that bombed on target
-  reverseWorldEffect(card *onWho, int howManyRound)
-      : observerEffect(onWho, howManyRound){};
+    reverseWorldEffect(card *onWho, int howManyRound)
+        : observerEffect(onWho, howManyRound) {}
 
-
-  void finishedAllRoundNeeded(bool &reverseWorld) override {
-
-    reverseWorld = !reverseWorld;
-  }
+    void finishedAllRoundNeeded(bool &reverseWorld) override
+    {
+        reverseWorld = !reverseWorld;
+    }
 };
